@@ -18,7 +18,7 @@ test.data.path <-"/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learn
 output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_3epochs/modelruns_repeatsubset/'
 
 # Number of epochs to include
-epoch.iterations <- c(3)
+epoch.iterations <- c(1,3)
 
 # Train the models specifying different architectures
 architectures <-  c('alexnet', 'resnet18', 'resnet50','resnet152', 'vgg16','vgg19')
