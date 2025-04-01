@@ -105,8 +105,8 @@ ggboxplot(data=PerformanceOutputCrestedBinaryCombined_F1,
 PerformanceOutputCrestedBinaryCombined_F1[c('F1','CNN Architecture','Frozen')]
 PerformanceOutputCrestedBinaryCombined_AUC[c('AUC','CNN Architecture','Frozen')]
 
-# Best performance using AUC -Multi ----------------------------------------------
-GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_combined/modelruns_repeatsubset_multi/',
+# Best performance using AUC - Grey Multi ----------------------------------------------
+GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC/',
                                          full.names = T,recursive = T)
 
 GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMultiGibbonPerformance,'performance_tables_multi')]
@@ -154,8 +154,8 @@ ggboxplot(data=PerformanceOutputGreyMultiCombined_F1,
 PerformanceOutputGreyMultiCombined_F1[c('F1','CNN Architecture','Frozen','Threshold')]
 PerformanceOutputGreyMultiCombined_AUC[c('AUC','CNN Architecture','Frozen')]
 
-# Best performance using AUC -Multi ----------------------------------------------
-CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_combined/modelruns_repeatsubset_multi',
+# Best performance using AUC - Multi Crested ----------------------------------------------
+CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC/',
                                          full.names = T,recursive = T)
 
 CrestedMultiGibbonPerformanceSub <- CrestedMultiGibbonPerformance[str_detect(CrestedMultiGibbonPerformance,'performance_tables_multi')]

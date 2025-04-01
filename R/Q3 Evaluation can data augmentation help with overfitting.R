@@ -3,6 +3,8 @@ library(ggpubr)
 library(dplyr)
 library(gibbonNetR)
 
+# We focus on the smaller test set for computational efficiency
+
 # Best performance using AUC- Grey binary ---------------------------------
 
 GreyGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_3epochs/modelruns_repeatsubset',

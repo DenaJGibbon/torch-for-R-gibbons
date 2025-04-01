@@ -67,11 +67,11 @@ for(d in 1:1){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
       for(c in 1:length(TrainingFolders)){
-
+        
         input.data.path <-  TrainingFolders[c]
-
+        
         trainingfolder.short <- paste( basename(TrainingFolders[c]),'_nojitter')
-
+        
         gibbonNetR::train_CNN_binary(
           input.data.path = input.data.path,
           noise.weight = 0.25,
@@ -93,7 +93,7 @@ for(d in 1:1){
           positive.class = "Gibbons",
           negative.class = "Noise"
         )
-
+        
       }
     }
   }
@@ -155,11 +155,11 @@ for(d in 1:1){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
       for(c in 1:length(TrainingFolders)){
-
+        
         input.data.path <-  TrainingFolders[c]
-
+        
         trainingfolder.short <-  paste( basename(TrainingFolders[c]),'_nojitter')
-
+        
         gibbonNetR::train_CNN_binary(
           input.data.path = input.data.path,
           noise.weight = 0.25,
@@ -181,10 +181,10 @@ for(d in 1:1){
           positive.class = "Gibbons",
           negative.class = "Noise"
         )
-
-
-
-
+        
+        
+        
+        
       }
     }
   }
