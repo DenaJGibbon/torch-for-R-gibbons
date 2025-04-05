@@ -80,7 +80,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                             output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                             output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -94,7 +94,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                             output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                             output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -107,7 +107,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -120,7 +120,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -133,7 +133,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                             output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                             output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -146,7 +146,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -154,7 +154,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
 
 # Cambodia Binary Model Evaluation ----------------------------------------
 
-performancetables.dir <- '/Users/denaclink/Desktop/RStudioProjects//Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir <- '/Users/denaclink/Desktop/RStudioProjects//Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
 
 PerformanceOutput <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir,
                                                       class='Gibbons',
@@ -238,7 +238,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -252,7 +252,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -265,7 +265,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -278,7 +278,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -291,7 +291,7 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
@@ -304,13 +304,13 @@ gibbonNetR::train_CNN_binary(input.data.path=input.data.path,
                              unfreeze.param = TRUE,
                              epoch.iterations=epoch.iterations,
                              early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                              trainingfolder=trainingfolder.short,
                              positive.class="Gibbons",
                              negative.class="Noise")
 
 # Evaluate model performance
-performancetables.dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies//Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/"
+performancetables.dir <- "/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies//Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/"
 
 PerformanceOutput <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir,
                                                       class='Gibbons',
@@ -352,7 +352,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                            output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -365,7 +365,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -377,7 +377,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -389,7 +389,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -401,7 +401,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -413,7 +413,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
                             epoch.iterations=epoch.iterations,
                             save.model= TRUE,
                             early.stop = "yes",
-                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/",
+                           output.base.path = "/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/",
                             trainingfolder=trainingfolder.short,
                             noise.category = "Noise")
 
@@ -422,7 +422,7 @@ gibbonNetR::train_CNN_multi(input.data.path=input.data.path,
 # Evaluate performance of all models ----------------------------------
 
 # Crested binary
-performancetables.dir.crested <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir.crested <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
 PerformanceOutputCrestedBinary <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir.crested,
                                                       class='Gibbons',
                                                       model.type = "binary", Thresh.val = 0)
@@ -430,7 +430,7 @@ as.data.frame(PerformanceOutputCrestedBinary$best_f1)
 as.data.frame(PerformanceOutputCrestedBinary$best_auc)
 
 # Grey gibbons binary
-performancetables.dir.grey <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir.grey <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/'
 PerformanceOutputGreyBinary <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir.grey,
                                                                    class='Gibbons',
                                                                    model.type = "binary", Thresh.val = 0)
@@ -439,7 +439,7 @@ as.data.frame(PerformanceOutputGreyBinary$best_f1)
 as.data.frame(PerformanceOutputGreyBinary$best_auc)
 
 
-performancetables.dir.multi <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi/'
+performancetables.dir.multi <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi/'
 
 PerformanceOutputMultiCrested <- gibbonNetR::get_best_performance(performancetables.dir=performancetables.dir.multi,
                                                            class='CrestedGibbons',
@@ -557,8 +557,6 @@ table(CombinedDFAUCSubset$`CNN Architecture`,
 CombinedDFAUCSubset <- CombinedDFAUCSubset[,c("Species", "Training Data", "N epochs", "CNN Architecture", 
                         "AUC")]
 
-CombinedDFAUCSubset <- 
-  CombinedDFAUCSubset[-which(duplicated(CombinedDFAUCSubset)),]
 
 CombinedDFAUCSubsetFlextableAUC <- flextable(CombinedDFAUCSubset)
 CombinedDFAUCSubsetFlextableAUC
@@ -569,14 +567,14 @@ flextable::save_as_docx(CombinedDFAUCSubsetFlextable,
 
 
 # Evaluate performance over separate test set -----------------------------
-
-  trained_models_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/_imagesmulti_multi_unfrozen_TRUE_'
+  library(gibbonNetR)
+  trained_models_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmulti_multi_unfrozen_TRUE_'
   
   image_data_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined//CombinedTest/test'
 
   class_names <-  dput(list.files(image_data_dir))
   
-  output_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/InitialModelEvaluation/model_output_3/evaluation_WA/'
+  output_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/evaluation_WA/'
   
   # Evaluate the performance of the trained models using the test images
   evaluate_trainedmodel_performance_multi(trained_models_dir=trained_models_dir,

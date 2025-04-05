@@ -532,10 +532,10 @@ CrestedGibbonCNNBinaryPlot
 
 
 
-cowplot::plot_grid(CrestedGibbonBirdNETBinaryPlot, GreyGibbonBirdNETBinaryPlot,
+cowplot::plot_grid(CrestedGibbonBirdNETBinaryPlot, CrestedGibbonCNNBinaryPlot,
+                   GreyGibbonBirdNETBinaryPlot, GreyGibbonCNNBinaryPlot,
                    CrestedGibbonBirdNETMultiPlot,GreyGibbonBirdNETMultiPlot,
-                   GreyGibbonCNNBinaryPlot,
-                   #nrow=4, 
-                   labels=c('A)','B)','C)','D)','E)','F)','G)','H)'),
-                   label_x = 0.9)
+                   nrow=3, 
+                   labels=c('A)','B)','C)','D)','E)','F)','G)','H)')
+                   )
 

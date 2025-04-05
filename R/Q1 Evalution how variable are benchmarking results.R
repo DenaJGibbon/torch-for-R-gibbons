@@ -106,7 +106,7 @@ PerformanceOutputCrestedBinaryCombined_F1[c('F1','CNN Architecture','Frozen')]
 PerformanceOutputCrestedBinaryCombined_AUC[c('AUC','CNN Architecture','Frozen')]
 
 # Best performance using AUC - Grey Multi ----------------------------------------------
-GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC/',
+GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC_1epoch/',
                                          full.names = T,recursive = T)
 
 GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMultiGibbonPerformance,'performance_tables_multi')]
@@ -155,7 +155,7 @@ PerformanceOutputGreyMultiCombined_F1[c('F1','CNN Architecture','Frozen','Thresh
 PerformanceOutputGreyMultiCombined_AUC[c('AUC','CNN Architecture','Frozen')]
 
 # Best performance using AUC - Multi Crested ----------------------------------------------
-CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC/',
+CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC_1epoch/',
                                          full.names = T,recursive = T)
 
 CrestedMultiGibbonPerformanceSub <- CrestedMultiGibbonPerformance[str_detect(CrestedMultiGibbonPerformance,'performance_tables_multi')]
@@ -328,7 +328,7 @@ F1plot <- ggplot(maxSEF1AUC, aes(x = CNN.Architecture, y = max_F1, color = facto
   geom_point(size = 1) +  # Add points to the lines
   geom_errorbar(aes(ymin = max_F1 - se_F1, ymax = max_F1 + se_F1), 
                 width = 0.2) +  # Error bars
-  facet_wrap(~ Class, scales = "free_y") +  # Facet by Class
+  facet_wrap(~ Class) +  # Facet by Class
   theme_minimal() +
   scale_color_manual(values = c("orange", "purple")) +  # Custom colors for 'Frozen' status
   labs(
@@ -346,10 +346,10 @@ F1plot
 
 AUCPlot <- ggplot(maxSEF1AUC, aes(x = CNN.Architecture, y = max_AUC, color = factor(Frozen), group = factor(Frozen))) +
   #geom_line(linewidth = 1) +  # Line plot for mean F1 across architectures
-  geom_jitter(size = 1, width = 0.2, height = 0) +  # Add points 
-  # geom_errorbar(aes(ymin = max_AUC - se_AUC, ymax = max_AUC + se_AUC), 
-  #               width = 0.2) +  # Error bars
-  facet_wrap(~ Class, scales = "free_y") +  # Facet by Class
+  geom_point(size = 1, width = 0.2, height = 0) +  # Add points 
+  geom_errorbar(aes(ymin = max_AUC - se_AUC, ymax = max_AUC + se_AUC), 
+                width = 0.2) +  # Error bars
+  facet_wrap(~ Class, scales = 'free') +  # Facet by Class
   theme_minimal() +
   scale_color_manual(values = c("orange", "purple")) +  # Custom colors for 'Frozen' status
   labs(

@@ -2,10 +2,20 @@
 library(dplyr)
 library(flextable)
 library(dplyr)
-library(gibbonNetR)
+#library(gibbonNetR)
 
 # Goal is test how variable results are
 # Will use the small test set, and use the large one for final reporting
+
+# Set training parameters -------------------------------------------------
+# Number of epochs to include
+epoch.iterations <- c(1)
+
+# Train the models specifying different architectures
+architectures <-  c('alexnet', 'resnet18', 'resnet50', 'vgg16', 'vgg19', 'resnet152')
+
+# Whether to fine-tune or use as feature extractor
+freeze.param <- c(FALSE,TRUE)
 
 # Grey Gibbon Binary Model Training ---------------------------------------
 
@@ -16,15 +26,6 @@ TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/D
 test.data.path <-"/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Danum/test/"
 
 output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset/'
-
-# Number of epochs to include
-epoch.iterations <- c(1)
-
-# Train the models specifying different architectures
-architectures <-  c('alexnet', 'resnet18', 'resnet50', 'vgg16', 'vgg19', 'resnet152')
-
-# Whether to fine-tune or use as feature extractor
-freeze.param <- c(FALSE,TRUE)
 
 for(d in 1:3){
   for (a in 1:length(architectures)) {
@@ -109,22 +110,23 @@ for(d in 1:3){
   }
 }
 gc()
+
 # Multi-class Model Training ---------------------------------------
 TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined/',
                               full.name=T)
 
-TrainingFolders <- TrainingFolders[1:4]
+TrainingFolders <- TrainingFolders[1]
 
 # Location of spectrogram images for testing
 test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined/test/'
 #test.data.path <-'/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined//CombinedTest/test'
 
-output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi/'
+output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC_1epoch/'
 
-for(d in 1:1){
+for(d in 2:3){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
-      for(c in 1:1){
+      for(c in 1:length(TrainingFolders)){
         
         input.data.path <-  TrainingFolders[c]
         

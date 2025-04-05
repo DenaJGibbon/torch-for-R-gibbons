@@ -7,7 +7,7 @@ library(gibbonNetR)
 
 # Best performance using AUC- Grey binary ---------------------------------
 
-GreyGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_3epochs/modelruns_repeatsubset',
+GreyGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset',
                                     full.names = T,recursive = T)
 
 GreyGibbonPerformanceSub <- GreyGibbonPerformance[str_detect(GreyGibbonPerformance,'Danum')]
@@ -52,7 +52,7 @@ ggboxplot(data=PerformanceOutputGreyBinaryCombined_F1,
 
 # Best performance using AUC- Crested binary ---------------------------------
 
-CrestedGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_3epochs/modelruns_repeatsubset_Jahoo',
+CrestedGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_Jahoo',
                                     full.names = T,recursive = T)
 
 CrestedGibbonPerformanceSub <- CrestedGibbonPerformance[str_detect(CrestedGibbonPerformance,'Jahoo')]
@@ -96,7 +96,7 @@ ggboxplot(data=PerformanceOutputCrestedBinaryCombined_F1,
           facet.by ='Training Data' )
 
 # Best performance using AUC -Multi ----------------------------------------------
-GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_3epochs/modelruns_repeatsubset_multi',
+GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi',
                                          full.names = T,recursive = T)
 
 GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMultiGibbonPerformance,'performance_tables_multi')]
@@ -140,7 +140,7 @@ ggboxplot(data=PerformanceOutputGreyMultiCombined_F1,
           facet.by ='Training Data' )+ggtitle("Grey Gibbon")
 
 # Best performance using AUC -Multi ----------------------------------------------
-CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_3epochs/modelruns_repeatsubset_multi',
+CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi',
                                          full.names = T,recursive = T)
 
 CrestedMultiGibbonPerformanceSub <- CrestedMultiGibbonPerformance[str_detect(CrestedMultiGibbonPerformance,'performance_tables_multi')]
