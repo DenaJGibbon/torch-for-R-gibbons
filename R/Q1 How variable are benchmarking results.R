@@ -40,7 +40,7 @@ for(d in 1:3){
           input.data.path = input.data.path,
           noise.weight = 0.25,
           architecture = architectures[a],
-          save.model = FALSE,
+          save.model= TRUE,
           learning_rate = 0.001,
           test.data = test.data.path,
           batch_size = 32,
@@ -87,7 +87,7 @@ for(d in 1:3){
           input.data.path = input.data.path,
           noise.weight = 0.25,
           architecture = architectures[a],
-          save.model = FALSE,
+          save.model= TRUE,
           learning_rate = 0.001,
           test.data = test.data.path,
           batch_size = 32,
@@ -112,6 +112,8 @@ for(d in 1:3){
 gc()
 
 # Multi-class Model Training ---------------------------------------
+devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
+
 TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined/',
                               full.name=T)
 
@@ -123,7 +125,7 @@ test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-lear
 
 output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC_1epoch/'
 
-for(d in 2:3){
+for(d in 1:3){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
       for(c in 1:length(TrainingFolders)){
@@ -139,7 +141,7 @@ for(d in 2:3){
                                     unfreeze.param = freeze.param[b],
                                     epoch.iterations=epoch.iterations,
                                     #list.thresholds = seq(0, 1, .1),
-                                    save.model= FALSE,
+                                    save.model= TRUE,
                                     early.stop = "yes",
                                     output.base.path = paste(output.dir,trainingfolder.short,'_',d,sep=''),
                                     trainingfolder=trainingfolder.short,

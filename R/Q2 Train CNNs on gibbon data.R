@@ -566,7 +566,7 @@ flextable::save_as_docx(CombinedDFAUCSubsetFlextable,
 
 
 
-# Evaluate performance over separate test set -----------------------------
+# Re-run to correct -----------------------------
   library(gibbonNetR)
   trained_models_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmulti_multi_unfrozen_TRUE_'
   

@@ -3,9 +3,10 @@ library(purrr)
 library(readr)
 library(flextable)
 
+
 # Multi Data augmentation -------------------------------------------------------
 
-ListAll <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC/',
+ListAll <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi/',
           recursive = TRUE, full.names = TRUE )
 
 PerformanceList <- 

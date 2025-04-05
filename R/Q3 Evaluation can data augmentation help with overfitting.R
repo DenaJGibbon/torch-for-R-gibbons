@@ -1,13 +1,14 @@
 library(stringr)
 library(ggpubr)
 library(dplyr)
-library(gibbonNetR)
+#library(gibbonNetR)
+devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
 # We focus on the smaller test set for computational efficiency
 
 # Best performance using AUC- Grey binary ---------------------------------
 
-GreyGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset',
+GreyGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V3/modelruns_repeatsubset',
                                     full.names = T,recursive = T)
 
 GreyGibbonPerformanceSub <- GreyGibbonPerformance[str_detect(GreyGibbonPerformance,'Danum')]
@@ -52,7 +53,7 @@ ggboxplot(data=PerformanceOutputGreyBinaryCombined_F1,
 
 # Best performance using AUC- Crested binary ---------------------------------
 
-CrestedGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_Jahoo',
+CrestedGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V3/modelruns_repeatsubset_Jahoo',
                                     full.names = T,recursive = T)
 
 CrestedGibbonPerformanceSub <- CrestedGibbonPerformance[str_detect(CrestedGibbonPerformance,'Jahoo')]

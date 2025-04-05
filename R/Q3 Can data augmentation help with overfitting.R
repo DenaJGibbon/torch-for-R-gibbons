@@ -23,7 +23,7 @@ output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentatio
 epoch.iterations <- c(1,5)
 
 # Train the models specifying different architectures
-architectures <-  c('resnet50')
+architectures <-  c('alexnet', 'resnet50')
 
 freeze.param <- c(TRUE)
 
@@ -191,6 +191,21 @@ for(d in 1:1){
 }
 
 # Multi-class Model Training ---------------------------------------
+library(dplyr)
+library(flextable)
+library(dplyr)
+#library(gibbonNetR)
+devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
+
+# Number of epochs to include
+epoch.iterations <- c(1,5)
+
+# Train the models specifying different architectures
+architectures <-  c('alexnet', 'resnet50')
+
+freeze.param <- c(TRUE)
+
+
 TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined/',
                               full.name=T)
 

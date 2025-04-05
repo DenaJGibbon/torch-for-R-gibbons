@@ -162,3 +162,17 @@ for(d in 1:1){
   }
 }
 
+
+# Update model runs for comparison ----------------------------------------
+test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/testimages/images_combined/test/'
+trained_models_dir <-  '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/modelruns_repeatsubset_multi/CombinedClipsSorted_AugmentedCropping_1_CombinedClipsSorted_AugmentedCropping_multi_unfrozen_TRUE_/'
+
+evaluate_trainedmodel_performance_multi(
+  trained_models_dir = trained_models_dir,
+  image_data_dir = test.data.path,
+  class_names = list.files(test.data.path),
+  output_dir = '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_rerun_updateAUC/', # Output directory for evaluation results
+  noise.category = "Noise"
+) # Label for negative class
+
+
