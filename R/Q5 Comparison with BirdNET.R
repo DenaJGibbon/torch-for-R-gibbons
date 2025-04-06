@@ -581,7 +581,7 @@ best_row_crest <- JahooFilesCombinedSubset[which.max(JahooFilesCombinedSubset$F1
 # Create summary table
 MultiCNN_SummaryTable <- data.frame(
   Species = c("Grey Gibbon", "Crested Gibbon"),
-  Model = c("ResNet50 Multi", "ResNet50 Multi"),
+  Model = c("AlexNet Multi", "ResNet50 Multi"),
   Max_F1 = round(c(best_row_grey$F1, best_row_crest$F1), 2),
   Precision = round(c(best_row_grey$Precision, best_row_crest$Precision), 2),
   Recall = round(c(best_row_grey$Recall, best_row_crest$Recall), 2),
@@ -625,5 +625,6 @@ CombinedPerformanceTableFT <-
   flextable(CombinedPerformanceTable)
 
 
-head(CombinedPerformanceTable)
+flextable::save_as_docx(CombinedPerformanceTableFT,
+                        path='BirdNETComparisonTable.docx')
 

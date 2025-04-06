@@ -1,6 +1,6 @@
 devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
-# Update model runs for comparison ----------------------------------------
+# Deply trained models over new test data ----------------------------------------
 test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/testimages/images_combined/test/'
 
 trained_models_dir <-  list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi/',
@@ -143,14 +143,30 @@ best_auc_Compare[,c("TrainingDataType","Class","Precision", "Recall", "F1", "AUC
                      )]
 
 best_auc_per_training_data <- CombinedTestPerformanceAll %>%
-  group_by(Class,TrainingDataType) %>%
+  group_by(CNN.Architecture,Class,TrainingDataType) %>%
   filter(AUC == max(AUC, na.rm = TRUE)) %>%
+  filter(F1 == max(F1, na.rm = TRUE)) %>%
+  slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
   ungroup()
 
 
 combined_long <- best_auc_per_training_data %>%
-  select(TrainingDataType, Class, F1, AUC) %>%
+  select(CNN.Architecture,TrainingDataType, Class, F1, AUC) %>%
   pivot_longer(cols = c(F1, AUC), names_to = "Metric", values_to = "Value")
+
+levels(combined_long$CNN.Architecture) <- 
+  c("AlexNet","ResNet50")
+
+# Specify the desired order of levels
+desired_order <- c("Duplicated \n Jitter",
+                   "Original \n Jitter", 
+                   "Original \n No Jitter",
+                   "Duplicated \n No Jitter", 
+                   "Noise \n No Jitter",
+                    "Crop \n No Jitter")
+
+# Reorder the factor levels
+combined_long$TrainingDataType <- factor(combined_long$TrainingDataType, levels = desired_order)
 
 
 ggplot(combined_long, aes(x = Class, y = Value, fill = TrainingDataType)) +
@@ -158,10 +174,11 @@ ggplot(combined_long, aes(x = Class, y = Value, fill = TrainingDataType)) +
   # geom_text(aes(label = round(Value, 3)), 
   #           position = position_dodge(width = 0.8), 
   #           vjust = -0.5, size = 3.5) +
-  facet_wrap(~ Metric, scales = "free_y") +
+  facet_grid(CNN.Architecture ~ Metric, scales = "free_y") +  # Facet by CNN.Architecture and Metric
   labs(title = "",
        x = "", y = "Metric") +
-  scale_fill_manual(values = rev(viridis(6))  ) +
+  scale_fill_manual(values = rev(viridis(6))) +
   theme_minimal(base_size = 14) +
   theme(axis.text.x = element_text(angle = 30, hjust = 1),
-        strip.text = element_text(face = "bold"))+ guides(fill = guide_legend(title = NULL))
+        strip.text = element_text(face = "bold")) +
+  guides(fill = guide_legend(title = NULL)) 

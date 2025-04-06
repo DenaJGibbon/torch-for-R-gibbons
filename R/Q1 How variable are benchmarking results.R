@@ -27,7 +27,7 @@ test.data.path <-"/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learn
 
 output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset/'
 
-for(d in 1:3){
+for(d in 3:3){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
       for(c in 1:1){
@@ -74,7 +74,7 @@ test.data.path <-'/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learn
 
 output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_Jahoo/'
 
-for(d in 1:3){
+for(d in 3:3){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
       for(c in 1:1){
@@ -113,6 +113,15 @@ gc()
 
 # Multi-class Model Training ---------------------------------------
 devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
+
+# Number of epochs to include
+epoch.iterations <- c(1)
+
+# Train the models specifying different architectures
+architectures <-  c( 'resnet18', 'resnet50')
+
+# Whether to fine-tune or use as feature extractor
+freeze.param <- c(FALSE,TRUE)
 
 TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined/',
                               full.name=T)

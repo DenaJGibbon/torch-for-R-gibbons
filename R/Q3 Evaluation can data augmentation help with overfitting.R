@@ -65,10 +65,10 @@ GreyGibbonMultiPerformanceListCSV <-lapply(unlist(GreyGibbonMultiPerformanceList
 GreyGibbonMultiPerformanceCombined <-  bind_rows(GreyGibbonMultiPerformanceListCSV)
 GreyGibbonMultiPerformanceCombined <- subset(GreyGibbonMultiPerformanceCombined,Class=='GreyGibbons')
 
-GreyGibbonPerformanceCombined$Class <- 'Grey Gibbons \n (binary)'
-CrestedGibbonPerformanceCombined$Class <- 'Crested Gibbons \n (binary)'
-CrestedGibbonMultiPerformanceCombined$Class <- 'Crested Gibbons \n (multi)'
-GreyGibbonMultiPerformanceCombined$Class <- 'Grey Gibbons \n (multi)'
+GreyGibbonPerformanceCombined$Class <- 'Grey  \n (binary)'
+CrestedGibbonPerformanceCombined$Class <- 'Crested  \n (binary)'
+CrestedGibbonMultiPerformanceCombined$Class <- 'Crested  \n (multi)'
+GreyGibbonMultiPerformanceCombined$Class <- 'Grey  \n (multi)'
 
 
 CombinedF1all <- 
@@ -100,31 +100,44 @@ CombinedF1all$TrainingDataType <-
 best_auc_per_training_data <- CombinedF1all %>%
   group_by(Class,TrainingDataType,CNN.Architecture,N.epochs) %>%
   filter(AUC == max(AUC, na.rm = TRUE)) %>%
+  slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
   ungroup()
 
 # Now combine to check results
 ggscatter(data=best_auc_per_training_data,
           x='TrainingDataType',y='AUC',
           facet.by=c('Class','CNN.Architecture'),
-          color = 'N.epochs' 
+          color = 'N.epochs',scales='free', 
          )+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
   xlab('')+scale_color_manual(values = c('yellow','purple'))
 
 # now try to find best max F1 given high AUC
 best_F1_per_training_data <- best_auc_per_training_data %>%
-  group_by(Class,TrainingDataType) %>%
+  group_by(Class) %>%
   filter(F1 == max(F1, na.rm = TRUE)) %>%
+  slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
   ungroup()
 
 best_F1_per_training_data
 
+best_F1_per_training_data$CNN.Architecture <- 
+  paste(best_F1_per_training_data$CNN.Architecture,
+      best_F1_per_training_data$N.epochs,sep='_')
+
 ggscatter(data=best_F1_per_training_data,
-          x='TrainingDataType',y='F1',
-          facet.by=c('Class','CNN.Architecture'),
-          color = 'N.epochs' 
+          x='TrainingDataType',y='F1',color='CNN.Architecture',
+          facet.by=c('Class'),
+          
 )+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  xlab('')+scale_color_manual(values = c('yellow','purple'))
+  xlab('')#+scale_color_manual(values = c('yellow','purple'))
 
+best_auc_per_training_data <- CombinedF1all %>%
+  group_by(Class) %>%
+  filter(AUC == max(AUC, na.rm = TRUE)) %>%
+  filter(F1 == max(F1, na.rm = TRUE)) %>%
+  slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
+  ungroup()
 
+as.data.frame(best_auc_per_training_data)
