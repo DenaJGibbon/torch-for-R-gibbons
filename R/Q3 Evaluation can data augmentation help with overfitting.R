@@ -1,11 +1,11 @@
 library(stringr)
 library(ggpubr)
 library(dplyr)
+library(tidyr)
 #library(gibbonNetR)
 devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
 # We focus on the smaller test set for computational efficiency
-
 # Best performance using AUC- Grey binary ---------------------------------
 
 GreyGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V3/modelruns_repeatsubset',
@@ -16,40 +16,6 @@ GreyGibbonPerformanceSub <- GreyGibbonPerformance[str_detect(GreyGibbonPerforman
 GreyGibbonPerformanceSub <- GreyGibbonPerformanceSub[str_detect(GreyGibbonPerformanceSub,'performance_tables')]
 
 GreyGibbonPerformanceDirs <- unique(dirname(GreyGibbonPerformanceSub))
-
-# Grey gibbons binary
-PerformanceOutputGreyBinaryCombined <- data.frame()
-
-for(a in 1:length(GreyGibbonPerformanceDirs)){
-  PerformanceOutputGreyBinary <- gibbonNetR::get_best_performance(performancetables.dir=GreyGibbonPerformanceDirs[a],
-                                                                  class='Gibbons',
-                                                                  model.type = "binary", Thresh.val = 0)
-  
-  AUCDF <- as.data.frame(PerformanceOutputGreyBinary$best_auc)
-  AUCDF$Category <- 'Best AUC'
-  
-  F1DF <- as.data.frame(PerformanceOutputGreyBinary$best_f1)
-  F1DF$Category <- 'Best F1'
-  
-  TempRow <- rbind.data.frame(AUCDF,F1DF)
-  PerformanceOutputGreyBinaryCombined <- rbind.data.frame(PerformanceOutputGreyBinaryCombined,TempRow)
-}
-
-head(PerformanceOutputGreyBinaryCombined)
-
-PerformanceOutputGreyBinaryCombined_AUC <- 
-  subset(PerformanceOutputGreyBinaryCombined,Category=='Best AUC')
-
-ggboxplot(data=PerformanceOutputGreyBinaryCombined_AUC,
-          color='CNN Architecture', y='AUC',x = 'Frozen',
-          facet.by ='Training Data' )
-
-PerformanceOutputGreyBinaryCombined_F1 <- 
-  subset(PerformanceOutputGreyBinaryCombined,Category=='Best F1')
-
-ggboxplot(data=PerformanceOutputGreyBinaryCombined_F1,
-          color='CNN Architecture', y='F1',x = 'Frozen',
-          facet.by ='Training Data' )
 
 # Best performance using AUC- Crested binary ---------------------------------
 
@@ -62,40 +28,6 @@ CrestedGibbonPerformanceSub <- CrestedGibbonPerformanceSub[str_detect(CrestedGib
 
 CrestedGibbonPerformanceDirs <- unique(dirname(CrestedGibbonPerformanceSub))
 
-# Crested gibbons binary
-PerformanceOutputCrestedBinaryCombined <- data.frame()
-
-for(a in 1:length(CrestedGibbonPerformanceDirs)){
-  PerformanceOutputCrestedBinary <- gibbonNetR::get_best_performance(performancetables.dir=CrestedGibbonPerformanceDirs[a],
-                                                                  class='Gibbons',
-                                                                  model.type = "binary", Thresh.val = 0)
-  
-  AUCDF <- as.data.frame(PerformanceOutputCrestedBinary$best_auc)
-  AUCDF$Category <- 'Best AUC'
-  
-  F1DF <- as.data.frame(PerformanceOutputCrestedBinary$best_f1)
-  F1DF$Category <- 'Best F1'
-  
-  TempRow <- rbind.data.frame(AUCDF,F1DF)
-  PerformanceOutputCrestedBinaryCombined <- rbind.data.frame(PerformanceOutputCrestedBinaryCombined,TempRow)
-}
-
-head(PerformanceOutputCrestedBinaryCombined)
-
-PerformanceOutputCrestedBinaryCombined_AUC <- 
-  subset(PerformanceOutputCrestedBinaryCombined,Category=='Best AUC')
-
-ggboxplot(data=PerformanceOutputCrestedBinaryCombined_AUC,
-          color='CNN Architecture', y='AUC',x = 'Frozen',
-          facet.by ='Training Data' )
-
-PerformanceOutputCrestedBinaryCombined_F1 <- 
-  subset(PerformanceOutputCrestedBinaryCombined,Category=='Best F1')
-
-ggboxplot(data=PerformanceOutputCrestedBinaryCombined_F1,
-          color='CNN Architecture', y='F1',x = 'Frozen',
-          facet.by ='Training Data' )
-
 # Best performance using AUC -Multi ----------------------------------------------
 GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi',
                                          full.names = T,recursive = T)
@@ -103,42 +35,6 @@ GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransfe
 GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMultiGibbonPerformance,'performance_tables_multi')]
 
 GreyMultiGibbonPerformanceDirs <- unique(dirname(GreyMultiGibbonPerformanceSub))
-
-# GreyMulti gibbons 
-PerformanceOutputGreyMultiCombined <- data.frame()
-
-for(a in 1:length(GreyMultiGibbonPerformanceDirs)){
-  
-  PerformanceOutputGreyMulti <- gibbonNetR::get_best_performance(performancetables.dir=GreyMultiGibbonPerformanceDirs[a],
-                                                                 class='GreyGibbons',
-                                                                 model.type = "multi", Thresh.val = 0)
-  
-  AUCDF <- as.data.frame(PerformanceOutputGreyMulti$best_auc)
-  AUCDF$Category <- 'Best AUC'
-  
-  F1DF <- as.data.frame(PerformanceOutputGreyMulti$best_f1)
-  F1DF$Category <- 'Best F1'
-  
-  TempRow <- rbind.data.frame(AUCDF,F1DF)
-  PerformanceOutputGreyMultiCombined <- rbind.data.frame(PerformanceOutputGreyMultiCombined,TempRow)
-}
-
-head(PerformanceOutputGreyMultiCombined)
-
-
-PerformanceOutputGreyMultiCombined_AUC <- 
-  subset(PerformanceOutputGreyMultiCombined,Category=='Best AUC')
-
-ggboxplot(data=PerformanceOutputGreyMultiCombined_AUC,
-          color='CNN Architecture', y='AUC',x = 'Frozen',
-          facet.by ='Training Data' )
-
-PerformanceOutputGreyMultiCombined_F1 <- 
-  subset(PerformanceOutputGreyMultiCombined,Category=='Best F1')
-
-ggboxplot(data=PerformanceOutputGreyMultiCombined_F1,
-          color='CNN Architecture', y='F1',x = 'Frozen',
-          facet.by ='Training Data' )+ggtitle("Grey Gibbon")
 
 # Best performance using AUC -Multi ----------------------------------------------
 CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi',
@@ -148,45 +44,9 @@ CrestedMultiGibbonPerformanceSub <- CrestedMultiGibbonPerformance[str_detect(Cre
 
 CrestedMultiGibbonPerformanceDirs <- unique(dirname(CrestedMultiGibbonPerformanceSub))
 
-# CrestedMulti gibbons 
-PerformanceOutputCrestedMultiCombined <- data.frame()
-
-for(a in 1:length(CrestedMultiGibbonPerformanceDirs)){
-  
-  PerformanceOutputCrestedMulti <- gibbonNetR::get_best_performance(performancetables.dir=CrestedMultiGibbonPerformanceDirs[a],
-                                                                 class='CrestedGibbons',
-                                                                 model.type = "multi", Thresh.val = 0)
-  
-  AUCDF <- as.data.frame(PerformanceOutputCrestedMulti$best_auc)
-  AUCDF$Category <- 'Best AUC'
-  
-  F1DF <- as.data.frame(PerformanceOutputCrestedMulti$best_f1)
-  F1DF$Category <- 'Best F1'
-  
-  TempRow <- rbind.data.frame(AUCDF,F1DF)
-  PerformanceOutputCrestedMultiCombined <- rbind.data.frame(PerformanceOutputCrestedMultiCombined,TempRow)
-}
-
-head(PerformanceOutputCrestedMultiCombined)
-
-PerformanceOutputCrestedMultiCombined_AUC <- 
-  subset(PerformanceOutputCrestedMultiCombined,Category=='Best AUC')
-
-ggboxplot(data=PerformanceOutputCrestedMultiCombined_AUC,
-          color='CNN Architecture', y='AUC',x = 'Frozen',
-          facet.by ='Training Data' )
-
-PerformanceOutputCrestedMultiCombined_F1 <- 
-  subset(PerformanceOutputCrestedMultiCombined,Category=='Best F1')
-
-ggscatter(data=PerformanceOutputCrestedMultiCombined_F1,
-          color='N epochs',
-          shape='CNN Architecture', y='F1',x = 'Frozen',
-          facet.by ='Training Data' )+ggtitle("Crested Gibbon")
-
 
 # Now combine to check results -------------------------------------------------------------------------
-library(tidyr)
+
 GreyGibbonPerformanceList <- lapply(GreyGibbonPerformanceDirs,  list.files, full.names = TRUE)
 GreyGibbonPerformanceListCSV <-lapply(unlist(GreyGibbonPerformanceList), read.csv)
 GreyGibbonPerformanceCombined <-  bind_rows(GreyGibbonPerformanceListCSV)
@@ -198,15 +58,18 @@ CrestedGibbonPerformanceCombined <-  bind_rows(CrestedGibbonPerformanceListCSV)
 CrestedGibbonMultiPerformanceList <- lapply(CrestedMultiGibbonPerformanceDirs,  list.files, full.names = TRUE)
 CrestedGibbonMultiPerformanceListCSV <-lapply(unlist(CrestedGibbonMultiPerformanceList), read.csv)
 CrestedGibbonMultiPerformanceCombined <-  bind_rows(CrestedGibbonMultiPerformanceListCSV)
+CrestedGibbonMultiPerformanceCombined <- subset(CrestedGibbonMultiPerformanceCombined,Class=='CrestedGibbons')
 
 GreyGibbonMultiPerformanceList <- lapply(GreyMultiGibbonPerformanceDirs,  list.files, full.names = TRUE)
 GreyGibbonMultiPerformanceListCSV <-lapply(unlist(GreyGibbonMultiPerformanceList), read.csv)
 GreyGibbonMultiPerformanceCombined <-  bind_rows(GreyGibbonMultiPerformanceListCSV)
+GreyGibbonMultiPerformanceCombined <- subset(GreyGibbonMultiPerformanceCombined,Class=='GreyGibbons')
 
 GreyGibbonPerformanceCombined$Class <- 'Grey Gibbons \n (binary)'
 CrestedGibbonPerformanceCombined$Class <- 'Crested Gibbons \n (binary)'
 CrestedGibbonMultiPerformanceCombined$Class <- 'Crested Gibbons \n (multi)'
 GreyGibbonMultiPerformanceCombined$Class <- 'Grey Gibbons \n (multi)'
+
 
 CombinedF1all <- 
   rbind.data.frame(GreyGibbonPerformanceCombined,CrestedGibbonPerformanceCombined,
@@ -221,76 +84,48 @@ CombinedF1all <- CombinedF1all %>%
     TRUE ~ "Original"
   ))
 
-# CombinedF1all is your data frame
-best_f1_per_class <- CombinedF1all %>%
-  group_by(Class,TrainingDataType,CNN.Architecture,Frozen,N.epochs) %>%  # Group by Class
-  filter(F1 == max(F1, na.rm = TRUE),
-         AUC == max(AUC, na.rm = TRUE)) %>%  # Select row(s) with max F1
-  ungroup()
-
-tail(as.data.frame(best_f1_per_class))
-
-# Reshape your dataframe into long format
-long_data <- best_f1_per_class %>%
-  pivot_longer(cols = c(AUC, F1), 
-               names_to = "Metric", 
-               values_to = "Value")
-
-colnames(long_data)
-
-# Now visualize using ggplot
-ggplot(long_data, aes(x = Frozen, y = Value, color = Metric)) +
-  geom_boxplot() +
-  #facet_grid(Class ~ CNN.Architecture,scales = 'free') +
-  theme_minimal() +
-  labs(title = "Comparison of Model Metrics",
-       y = "Score", x = "Class") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-head(long_data)
-
-# Create the boxplot comparing F1 and AUC across architectures, with Frozen as a factor
-ggplot(long_data, aes(x = Frozen, y = Value, fill = Metric)) +
-  geom_boxplot() +
-  facet_grid(Class ~ CNN.Architecture) +
-  theme_minimal() +
-  labs(title = "Performance of CNN Architectures with and without Frozen Weights", 
-       y = "Score (F1/AUC)", x = "CNN Architecture") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-PerformanceOutputGreyBinaryCombined_F1$Class <- 'Grey \n (binary)'
-PerformanceOutputCrestedBinaryCombined_F1$Class <- 'Crested \n (binary)'
-PerformanceOutputGreyMultiCombined_F1$Class <- 'Grey \n (multi)'
-PerformanceOutputCrestedMultiCombined_F1$Class <- 'Crested \n (multi)'
-
-CombinedF1all <- rbind.data.frame(PerformanceOutputGreyBinaryCombined_F1,
-                                  PerformanceOutputCrestedBinaryCombined_F1,
-                                  PerformanceOutputGreyMultiCombined_F1,
-                                  PerformanceOutputCrestedMultiCombined_F1)
-
-
-
 CombinedF1all <- CombinedF1all %>%
-  mutate(TrainingDataType = case_when(
-    grepl("Noise", `Training Data`) ~ "Noise",
-    grepl("Cropping", `Training Data`) ~ "Crop",
-    grepl("copy", `Training Data`) ~ "Duplicated",
-    TRUE ~ "Original"
+  mutate(jitter = case_when(
+    grepl("_jitter", Training.Data) ~ "Jitter",
+    grepl("_nojitter", Training.Data) ~ "No Jitter"
   ))
 
 
-ggscatter(data=CombinedF1all,
-            color='CNN Architecture', y='F1',x = 'TrainingDataType',
-            shape='Frozen',
-            facet.by ='Class' )+ggtitle("Best F1")
+CombinedF1all$`N.epochs` <- 
+  as.factor(CombinedF1all$`N.epochs`)
 
-ggboxplot(data=CombinedF1all,
-          color='CNN Architecture', y='F1', x='Frozen',
-          facet.by=c('Class', 'TrainingDataType')) + 
-  ggtitle("Best F1")
+CombinedF1all$TrainingDataType <- 
+  paste(CombinedF1all$TrainingDataType, '\n', CombinedF1all$jitter)
+
+best_auc_per_training_data <- CombinedF1all %>%
+  group_by(Class,TrainingDataType,CNN.Architecture,N.epochs) %>%
+  filter(AUC == max(AUC, na.rm = TRUE)) %>%
+  ungroup()
 
 # Now combine to check results
+ggscatter(data=best_auc_per_training_data,
+          x='TrainingDataType',y='AUC',
+          facet.by=c('Class','CNN.Architecture'),
+          color = 'N.epochs' 
+         )+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  xlab('')
 
+# now try to find best max F1 given high AUC
+best_F1_per_training_data <- best_auc_per_training_data %>%
+  group_by(Class,TrainingDataType) %>%
+  filter(F1 == max(F1, na.rm = TRUE)) %>%
+  ungroup()
+
+best_F1_per_training_data
+
+ggscatter(data=best_F1_per_training_data,
+          x='TrainingDataType',y='F1',
+          facet.by=c('Class','CNN.Architecture'),
+          color = 'N.epochs' 
+)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  xlab('')
 
 PerformanceOutputGreyBinaryCombined_AUC$Class <- 'Grey \n (binary)'
 PerformanceOutputCrestedBinaryCombined_AUC$Class <- 'Crested \n (binary)'
@@ -342,7 +177,7 @@ best_f1_per_class <- CombinedF1all %>%
   ungroup()
 
 # View the result
-best_F1 <- as.data.frame(best_f1_per_class[,c("TrainingDataType","N epochs", "CNN Architecture", "Threshold", 
+best_F1 <- as.data.frame(best_f1_per_class[,c("TrainingDataType","N.epochs", "CNN.Architecture", #"Threshold", 
                                               "F1", "Frozen", "Class")])
 
 # CombinedF1all is your data frame
@@ -354,11 +189,6 @@ best_AUC_per_class <- CombinedAUCall %>%
 # View the result
 best_AUC <- as.data.frame(best_AUC_per_class[,c("TrainingDataType","N epochs", "CNN Architecture", #"Threshold", 
                                                 "AUC", "Frozen", "Class")])
+best_AUC <- best_AUC[-c(which(duplicated(best_AUC))),]
+best_F1 <- best_F1[-c(which(duplicated(best_F1))),]
 
-best_F1
-best_AUC
-
-
-# What are we trying to show? ---------------------------------------------
-
-# DO we see 
