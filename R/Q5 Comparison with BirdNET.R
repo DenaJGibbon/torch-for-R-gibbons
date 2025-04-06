@@ -454,86 +454,9 @@ CrestedGibbonBirdNETMultiPlot <- ggplot(data = BestF1data.frameCrestedGibbonBird
 
 CrestedGibbonBirdNETMultiPlot
 
-
-# Binary Grey gibbon --------------------------------------------------
-
-DanumFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/modelruns_repeatsubset',
-           recursive = TRUE,full.names = TRUE)
-
-DanumFiles <- DanumFiles[which(str_detect(DanumFiles,pattern = 'performance_tables'))]
-
-DanumFilesCombined <- DanumFiles %>%
-  map(read_csv,show_col_types = FALSE) %>%
-  bind_rows()
-
-MaxAUC <-max(DanumFilesCombined$AUC)
-
-DanumFilesCombinedSubset <- 
-  as.data.frame(subset(DanumFilesCombined,AUC==MaxAUC))
-
-unique(DanumFilesCombinedSubset$`Training Data`)
-
-MaxF1GreyGibbonCNNBinary <- round(max(na.omit(DanumFilesCombinedSubset$F1)),2)
-MaxAUCGreyGibbonCNNBinary <- round(max(na.omit(DanumFilesCombinedSubset$AUC)),2)
-
-GreyGibbonCNNBinaryPlot <- ggplot(data = DanumFilesCombinedSubset, aes(x = Threshold)) +
-  geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
-  geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
-  geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
-  labs(title = paste("Grey Gibbons (ResNet50 Binary) \n",'Max F1=', MaxF1GreyGibbonCNNBinary,
-                     'Max AUC=',MaxAUCGreyGibbonCNNBinary),
-       x = "Confidence",
-       y = "Values") +
-  scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
-                     labels = c("F1", "Precision", "Recall")) +
-  scale_linetype_manual(values = c("F1" = "dashed", "Precision" = "dotted", "Recall" = "solid")) +
-  theme_minimal() +
-  theme(legend.title = element_blank())+
-  labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")+ylim(0,1)
-
-GreyGibbonCNNBinaryPlot
-
-
-# Binary Crested CNN Binary ------------------------------------------------------
-JahooFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/modelruns_repeatsubset_Jahoo',
-                         recursive = TRUE,full.names = TRUE)
-
-JahooFiles <- JahooFiles[which(str_detect(JahooFiles,pattern = 'performance_tables'))]
-
-JahooFilesCombined <- JahooFiles %>%
-  map(read_csv,show_col_types = FALSE) %>%
-  bind_rows()
-
-MaxAUC <-max(JahooFilesCombined$AUC)
-
-JahooFilesCombinedSubset <- 
-  as.data.frame(subset(JahooFilesCombined,AUC==MaxAUC))
-
-unique(JahooFilesCombinedSubset$`Training Data`)
-
-MaxF1CrestedGibbonCNNBinary <- round(max(na.omit(JahooFilesCombinedSubset$F1)),2)
-MaxAUCCrestedGibbonCNNBinary <- round(max(na.omit(JahooFilesCombinedSubset$AUC)),2)
-
-CrestedGibbonCNNBinaryPlot <- ggplot(data = JahooFilesCombinedSubset, aes(x = Threshold)) +
-  geom_line(aes(y = F1, color = "F1", linetype = "F1")) +
-  geom_line(aes(y = Precision, color = "Precision", linetype = "Precision")) +
-  geom_line(aes(y = Recall, color = "Recall", linetype = "Recall")) +
-  labs(title = paste("Crested Gibbons (ResNet50 Binary) \n",'Max F1=', MaxF1CrestedGibbonCNNBinary,
-                     'Max AUC=',MaxAUCCrestedGibbonCNNBinary),
-       x = "Confidence",
-       y = "Values") +
-  scale_color_manual(values = c("F1" = "blue", "Precision" = "red", "Recall" = "green"),
-                     labels = c("F1", "Precision", "Recall")) +
-  scale_linetype_manual(values = c("F1" = "dashed", "Precision" = "dotted", "Recall" = "solid")) +
-  theme_minimal() +
-  theme(legend.title = element_blank())+
-  labs(color  = "Guide name", linetype = "Guide name", shape = "Guide name")+ylim(0,1)
-
-CrestedGibbonCNNBinaryPlot
-
 # Multi Grey gibbon --------------------------------------------------
 
-DanumFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_rerun_updateAUC',
+DanumFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata/Combined copy _jitter_1_Combined copy _jitter_multi_unfrozen_TRUE_/',
                          recursive = TRUE,full.names = TRUE)
 
 DanumFilesCombined <- DanumFiles %>%
@@ -541,10 +464,13 @@ DanumFilesCombined <- DanumFiles %>%
         mutate(`N epochs` = as.character(`N epochs`))) %>%
   bind_rows()
 
-MaxAUC <-max(DanumFilesCombined$AUC)
+DanumFilesCombinedSubset <- 
+  as.data.frame(subset(DanumFilesCombined, Class=='GreyGibbons'))
+
+MaxAUC <-max(DanumFilesCombinedSubset$AUC)
 
 DanumFilesCombinedSubset <- 
-  as.data.frame(subset(DanumFilesCombined,AUC==MaxAUC))
+  as.data.frame(subset(DanumFilesCombinedSubset,AUC==MaxAUC ))
 
 unique(DanumFilesCombinedSubset$`Training Data`)
 
@@ -570,7 +496,7 @@ GreyGibbonCNNMultiPlot
 
 
 # Multi Crested CNN  ------------------------------------------------------
-JahooFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_rerun_updateAUC',
+JahooFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata/Combined copy _jitter_1_Combined copy _jitter_multi_unfrozen_TRUE_/',
                          recursive = TRUE,full.names = TRUE)
 
 JahooFilesCombined <- JahooFiles %>%
@@ -579,10 +505,13 @@ JahooFilesCombined <- JahooFiles %>%
   bind_rows()
 
 
-MaxAUC <-max(JahooFilesCombined$AUC)
+JahooFilesCombinedSubset <- 
+  as.data.frame(subset(JahooFilesCombined,Class=='CrestedGibbons' ))
+
+MaxAUC <-max(JahooFilesCombinedSubset$AUC)
 
 JahooFilesCombinedSubset <- 
-  as.data.frame(subset(JahooFilesCombined,AUC==MaxAUC))
+  as.data.frame(subset(JahooFilesCombinedSubset,AUC==MaxAUC ))
 
 unique(JahooFilesCombinedSubset$`Training Data`)
 
@@ -609,12 +538,92 @@ CrestedGibbonCNNMultiPlot
 
 
 
-pdf('BirdNETComparison.pdf',height=7)
+pdf('BirdNETComparison.pdf',height=7,width=9)
 cowplot::plot_grid(CrestedGibbonBirdNETBinaryPlot, GreyGibbonBirdNETBinaryPlot,
-                   CrestedGibbonCNNBinaryPlot,GreyGibbonCNNBinaryPlot,
+                   #CrestedGibbonCNNBinaryPlot,GreyGibbonCNNBinaryPlot,
                    CrestedGibbonBirdNETMultiPlot,GreyGibbonBirdNETMultiPlot,
                    CrestedGibbonCNNMultiPlot, GreyGibbonCNNMultiPlot,
-                   nrow=4, 
-                   labels=c('A)','B)','C)','D)','E)','F)','G)','H)')
+                   nrow=3, 
+                   labels=c('A)','B)','C)','D)','E)','F)')
                    )
 graphics.off()
+
+
+
+# Create Comparision Table  ------------------------------------------------------------------
+# Crested gibbon results
+crested_max_index <- which.max(BestF1data.frameCrestedGibbonBirdNETBinary$F1)
+crested_best_row <- BestF1data.frameCrestedGibbonBirdNETBinary[crested_max_index, ]
+crested_auc <- round(AUCvalCrestedBinary@y.values[[1]], 2)
+
+# Grey gibbon results
+grey_max_index <- which.max(BestF1data.frameGreyGibbonBirdNETBinary$F1)
+grey_best_row <- BestF1data.frameGreyGibbonBirdNETBinary[grey_max_index, ]
+grey_auc <- round(AUCvalGreyBinary@y.values[[1]], 2)
+
+# Combine into a summary table
+BirdNETBinarySummaryTable <- data.frame(
+  Species = c("Crested Gibbon", "Grey Gibbon"),
+  Model = c("BirdNET Binary", "BirdNET Binary"),
+  Max_F1 = round(c(crested_best_row$F1, grey_best_row$F1), 2),
+  Precision = round(c(crested_best_row$Precision, grey_best_row$Precision), 2),
+  Recall = round(c(crested_best_row$Recall, grey_best_row$Recall), 2),
+  Threshold = c(crested_best_row$Thresholds, grey_best_row$Thresholds),
+  AUC = c(crested_auc, grey_auc)
+)
+
+print(BirdNETBinarySummaryTable)
+
+# Extract best performing row (max F1) for each species
+best_row_grey <- DanumFilesCombinedSubset[which.max(DanumFilesCombinedSubset$F1), ]
+best_row_crest <- JahooFilesCombinedSubset[which.max(JahooFilesCombinedSubset$F1), ]
+
+# Create summary table
+MultiCNN_SummaryTable <- data.frame(
+  Species = c("Grey Gibbon", "Crested Gibbon"),
+  Model = c("ResNet50 Multi", "ResNet50 Multi"),
+  Max_F1 = round(c(best_row_grey$F1, best_row_crest$F1), 2),
+  Precision = round(c(best_row_grey$Precision, best_row_crest$Precision), 2),
+  Recall = round(c(best_row_grey$Recall, best_row_crest$Recall), 2),
+  Threshold = round(c(best_row_grey$Threshold, best_row_crest$Threshold), 2),
+  AUC = round(c(best_row_grey$AUC, best_row_crest$AUC), 2)
+)
+
+print(MultiCNN_SummaryTable)
+
+# --- For BirdNET Multi ---
+# For Grey Gibbon (BirdNET Multi)
+best_row_birdnet_grey <- BestF1data.frameGreyGibbonBirdNETMulti[which.max(BestF1data.frameGreyGibbonBirdNETMulti$F1), ]
+birdnet_grey_auc <- round(AUCvalGreyMulti@y.values[[1]], 2)
+
+# For Crested Gibbon (BirdNET Multi)
+best_row_birdnet_crest <- BestF1data.frameCrestedGibbonBirdNETMulti[which.max(BestF1data.frameCrestedGibbonBirdNETMulti$F1), ]
+birdnet_crest_auc <- round(AUCvalCrestedMulti@y.values[[1]], 2)
+
+BirdNETMulti_SummaryTable <- data.frame(
+  Species = c("Grey Gibbon", "Crested Gibbon"),
+  Model = c("BirdNET Multi", "BirdNET Multi"),
+  Max_F1 = round(c(best_row_birdnet_grey$F1, best_row_birdnet_crest$F1), 2),
+  Precision = round(c(best_row_birdnet_grey$Precision, best_row_birdnet_crest$Precision), 2),
+  Recall = round(c(best_row_birdnet_grey$Recall, best_row_birdnet_crest$Recall), 2),
+  Threshold = round(c(best_row_birdnet_grey$Thresholds, best_row_birdnet_crest$Thresholds), 2),
+  AUC = c(birdnet_grey_auc, birdnet_crest_auc)
+)
+
+
+CombinedPerformanceTable <- 
+  rbind.data.frame(BirdNETBinarySummaryTable,BirdNETMulti_SummaryTable,MultiCNN_SummaryTable)
+
+head(CombinedPerformanceTable)
+
+# Sort by Species, then descending AUC
+CombinedPerformanceTable <- CombinedPerformanceTable %>%
+  arrange(Species, desc(AUC))
+
+
+CombinedPerformanceTableFT <- 
+  flextable(CombinedPerformanceTable)
+
+
+head(CombinedPerformanceTable)
+

@@ -567,14 +567,14 @@ flextable::save_as_docx(CombinedDFAUCSubsetFlextable,
 
 
 # Re-run to correct -----------------------------
-  library(gibbonNetR)
+
   trained_models_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmulti_multi_unfrozen_TRUE_'
   
-  image_data_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined//CombinedTest/test'
-
+  image_data_dir <-  '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined/test/'
+  
   class_names <-  dput(list.files(image_data_dir))
   
-  output_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/evaluation_WA/'
+  output_dir <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/rerun_updated_AUC/_imagesmulti_multi_unfrozen_TRUE_/'
   
   # Evaluate the performance of the trained models using the test images
   evaluate_trainedmodel_performance_multi(trained_models_dir=trained_models_dir,

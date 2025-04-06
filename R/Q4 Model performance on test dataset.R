@@ -26,10 +26,15 @@ for(a in 1:length(trained_models_dir)){
 # Evaluate performance ---------------------------------------------
 
 PerformanceTestDirs <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata',
-                                  recursive = TRUE, full.names = TRUE)
+                                  full.names = TRUE)
 
+CombinedTestPerformanceAll <- data.frame()
 
-TestPerformanceListCSV <-lapply(unlist(PerformanceTestDirs), read.csv)
+for(i in 1:length(PerformanceTestDirs)){
+
+PerformanceTestDirsList <- list.files(PerformanceTestDirs[i],full.names = T,recursive = T)
+  
+TestPerformanceListCSV <-lapply(unlist(PerformanceTestDirsList), read.csv)
 TestPerformanceListCSVCombined <-  bind_rows(TestPerformanceListCSV)
 CrestedTestPerformanceListCSVCombined <- subset(TestPerformanceListCSVCombined,Class=='CrestedGibbons')
 GreyTestPerformanceListCSVCombined  <- subset(TestPerformanceListCSVCombined,Class=='GreyGibbons')
@@ -42,35 +47,41 @@ CombinedTestPerformance <-
   rbind.data.frame(CrestedTestPerformanceListCSVCombined,
                    GreyTestPerformanceListCSVCombined)
 
-CombinedTestPerformance <- CombinedTestPerformance %>%
+CombinedTestPerformance$DirectoryName <- basename(PerformanceTestDirs[i])
+CombinedTestPerformanceAll <- rbind.data.frame(CombinedTestPerformanceAll,CombinedTestPerformance)
+}
+
+CombinedTestPerformanceAll <- CombinedTestPerformanceAll %>%
   mutate(TrainingDataType = case_when(
-    grepl("Noise", Training.Data) ~ "Noise",
-    grepl("Cropping", Training.Data) ~ "Crop",
-    grepl("copy", Training.Data) ~ "Duplicated",
+    grepl("Noise", DirectoryName) ~ "Noise",
+    grepl("Cropping", DirectoryName) ~ "Crop",
+    grepl("copy", DirectoryName) ~ "Duplicated",
     TRUE ~ "Original"
   ))
 
-CombinedTestPerformance <- CombinedTestPerformance %>%
+CombinedTestPerformanceAll <- CombinedTestPerformanceAll %>%
   mutate(jitter = case_when(
-    grepl("_jitter", Training.Data) ~ "Jitter",
-    grepl("_nojitter", Training.Data) ~ "No Jitter"
+    grepl("_nojitter", DirectoryName) ~ "No Jitter",
+    grepl("_jitter", DirectoryName) ~ "Jitter"
   ))
 
-ModelInfo <-as.factor(str_split_fixed(CombinedTestPerformance$Training.Data,
-                                      pattern = 'jitter', n=2)[,2])
 
-CombinedTestPerformance$`N.epochs`  <- 
-  as.factor(str_split_fixed(ModelInfo,
+CombinedTestPerformanceAll$CNN.Architecture <- 
+  str_replace_all(CombinedTestPerformanceAll$CNN.Architecture,
+                'nojitter_','')
+
+CombinedTestPerformanceAll$`N.epochs`  <- 
+  as.factor(str_split_fixed(CombinedTestPerformanceAll$CNN.Architecture,
+                            pattern = '_', n=3)[,1])
+
+CombinedTestPerformanceAll$CNN.Architecture <- 
+  as.factor(str_split_fixed(CombinedTestPerformanceAll$CNN.Architecture,
                             pattern = '_', n=3)[,2])
 
-CombinedTestPerformance$CNN.Architecture <- 
-  as.factor(str_split_fixed(ModelInfo,
-                            pattern = '_', n=4)[,3])
+CombinedTestPerformanceAll$TrainingDataType <- 
+  paste(CombinedTestPerformanceAll$TrainingDataType, '\n', CombinedTestPerformanceAll$jitter)
 
-CombinedTestPerformance$TrainingDataType <- 
-  paste(CombinedTestPerformance$TrainingDataType, '\n', CombinedTestPerformance$jitter)
-
-best_auc_per_training_data <- CombinedTestPerformance %>%
+best_auc_per_training_data <- CombinedTestPerformanceAll %>%
   group_by(Class,TrainingDataType,CNN.Architecture,N.epochs) %>%
   filter(AUC == max(AUC, na.rm = TRUE)) %>%
   ungroup()
@@ -79,10 +90,10 @@ best_auc_per_training_data <- CombinedTestPerformance %>%
 ggscatter(data=best_auc_per_training_data,
           x='TrainingDataType',y='AUC',
           facet.by=c('Class','CNN.Architecture'),
-          color = 'N.epochs' 
+          color = 'N.epochs', scales='free', 
 )+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  xlab('')
+  xlab('')+scale_color_manual(values = c('yellow','purple'))
 
 best_F1_per_training_data <- best_auc_per_training_data %>%
   group_by(Class) %>%
@@ -90,7 +101,15 @@ best_F1_per_training_data <- best_auc_per_training_data %>%
   ungroup()
 
 
-as.data.frame(best_F1_per_training_data)
+
+ggscatter(data=best_F1_per_training_data,
+          x='TrainingDataType',y='F1',
+          facet.by=c('Class','CNN.Architecture'),
+          color = 'N.epochs', 
+)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  xlab('')+ylim(0,1)+scale_color_manual(values = c('yellow','purple'))
+
 
 best_top1_per_training_data <- best_auc_per_training_data %>%
   group_by(Class) %>%
@@ -99,3 +118,50 @@ best_top1_per_training_data <- best_auc_per_training_data %>%
 
 
 as.data.frame(best_top1_per_training_data)
+
+CompareOriginalandAugment <- 
+  subset(CombinedTestPerformanceAll,TrainingDataType=="Original \n No Jitter"|
+         TrainingDataType=="Duplicated \n Jitter")
+
+CompareOriginalandAugment <- na.omit(CompareOriginalandAugment)
+
+best_auc_Compare <- CompareOriginalandAugment %>%
+  group_by(Class, TrainingDataType) %>%
+  filter(AUC == max(AUC, na.rm = TRUE)) %>%
+  ungroup()
+
+best_auc_Compare <- best_auc_Compare %>%
+  group_by(Class, TrainingDataType) %>%
+  filter(F1 == max(F1, na.rm = TRUE)) %>%
+  slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
+  ungroup()
+
+as.data.frame(best_auc_Compare)
+
+best_auc_Compare[,c("TrainingDataType","Class","Precision", "Recall", "F1", "AUC", "Top1Accuracy",
+                    "N.epochs", "CNN.Architecture",  "Threshold", "Class"
+                     )]
+
+best_auc_per_training_data <- CombinedTestPerformanceAll %>%
+  group_by(Class,TrainingDataType) %>%
+  filter(AUC == max(AUC, na.rm = TRUE)) %>%
+  ungroup()
+
+
+combined_long <- best_auc_per_training_data %>%
+  select(TrainingDataType, Class, F1, AUC) %>%
+  pivot_longer(cols = c(F1, AUC), names_to = "Metric", values_to = "Value")
+
+
+ggplot(combined_long, aes(x = Class, y = Value, fill = TrainingDataType)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8)) +
+  # geom_text(aes(label = round(Value, 3)), 
+  #           position = position_dodge(width = 0.8), 
+  #           vjust = -0.5, size = 3.5) +
+  facet_wrap(~ Metric, scales = "free_y") +
+  labs(title = "",
+       x = "", y = "Metric") +
+  scale_fill_manual(values = rev(viridis(6))  ) +
+  theme_minimal(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1),
+        strip.text = element_text(face = "bold"))+ guides(fill = guide_legend(title = NULL))

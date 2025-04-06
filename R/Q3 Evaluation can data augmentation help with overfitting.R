@@ -109,7 +109,7 @@ ggscatter(data=best_auc_per_training_data,
           color = 'N.epochs' 
          )+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  xlab('')
+  xlab('')+scale_color_manual(values = c('yellow','purple'))
 
 # now try to find best max F1 given high AUC
 best_F1_per_training_data <- best_auc_per_training_data %>%
@@ -125,70 +125,6 @@ ggscatter(data=best_F1_per_training_data,
           color = 'N.epochs' 
 )+
   theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  xlab('')
+  xlab('')+scale_color_manual(values = c('yellow','purple'))
 
-PerformanceOutputGreyBinaryCombined_AUC$Class <- 'Grey \n (binary)'
-PerformanceOutputCrestedBinaryCombined_AUC$Class <- 'Crested \n (binary)'
-PerformanceOutputGreyMultiCombined_AUC$Class <- 'Grey \n (multi)'
-PerformanceOutputCrestedMultiCombined_AUC$Class <- 'Crested \n (multi)'
-
-CombinedAUCall <- rbind.data.frame(PerformanceOutputGreyBinaryCombined_AUC,
-                                   PerformanceOutputCrestedBinaryCombined_AUC,
-                                   PerformanceOutputGreyMultiCombined_AUC,
-                                   PerformanceOutputCrestedMultiCombined_AUC)
-
-
-
-CombinedAUCall <- CombinedAUCall %>%
-  mutate(TrainingDataType = case_when(
-    grepl("Noise", `Training Data`) ~ "Noise",
-    grepl("Cropping", `Training Data`) ~ "Crop",
-    grepl("copy", `Training Data`) ~ "Duplicate",
-    TRUE ~ "Original"
-  ))
-
-
-ggscatter(data=CombinedAUCall,
-          color='CNN Architecture', y='AUC',x = 'TrainingDataType',
-          shape='Frozen',
-          facet.by ='Class' )+ggtitle("Best AUC")
-
-ggscatter(data=CombinedF1all,scales='free',
-          x='CNN Architecture', y='F1', color='Frozen',
-          facet.by=c('Class','TrainingDataType')) + 
-  ggtitle("")+scale_color_manual(values = c('yellow','purple'))+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  ylab('Max F1')
-
-ggscatter(data=CombinedAUCall,#scales='free',
-          x='CNN Architecture', y='AUC', color='Frozen',
-          facet.by=c('Class','TrainingDataType')) + 
-  ggtitle("")+scale_color_manual(values = c('yellow','purple'))+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  ylab('AUC')
-
-
-
-
-# CombinedF1all is your data frame
-best_f1_per_class <- CombinedF1all %>%
-  group_by(Class) %>%  # Group by Class
-  filter(F1 == max(F1, na.rm = TRUE)) %>%  # Select row(s) with max F1
-  ungroup()
-
-# View the result
-best_F1 <- as.data.frame(best_f1_per_class[,c("TrainingDataType","N.epochs", "CNN.Architecture", #"Threshold", 
-                                              "F1", "Frozen", "Class")])
-
-# CombinedF1all is your data frame
-best_AUC_per_class <- CombinedAUCall %>%
-  group_by(Class) %>%  # Group by Class
-  filter(AUC == max(AUC, na.rm = TRUE)) %>%  # Select row(s) with max AUC
-  ungroup()
-
-# View the result
-best_AUC <- as.data.frame(best_AUC_per_class[,c("TrainingDataType","N epochs", "CNN Architecture", #"Threshold", 
-                                                "AUC", "Frozen", "Class")])
-best_AUC <- best_AUC[-c(which(duplicated(best_AUC))),]
-best_F1 <- best_F1[-c(which(duplicated(best_F1))),]
 

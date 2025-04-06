@@ -22,7 +22,7 @@ PerformanceOutputGreyBinary <- gibbonNetR::get_best_performance(
 
 # -------------------- Evaluate Multi-Class Model Performance ----------------
 
-performancetables.dir.multi <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi/'
+performancetables.dir.multi <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/rerun_updated_AUC/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi_trained/'
 
 # Crested Gibbon (Multi-Class Model)
 PerformanceOutputMultiCrested <- gibbonNetR::get_best_performance(
@@ -39,18 +39,22 @@ PerformanceOutputMultiGrey <- gibbonNetR::get_best_performance(
 # -------------------- Format and Combine F1 Scores -------------------------
 
 # Add species label for clarity
-PerformanceOutputCrestedBinary$best_f1$Species <- 'Crested Gibbon'
-PerformanceOutputGreyBinary$best_f1$Species <- 'Grey Gibbon'
-PerformanceOutputMultiCrested$best_f1$Species <- 'Crested Gibbon'
-PerformanceOutputMultiGrey$best_f1$Species <- 'Grey Gibbon'
+PerformanceOutputCrestedBinary$best_f1$Species <- 'Crested Gibbon \n binary'
+PerformanceOutputGreyBinary$best_f1$Species <- 'Grey Gibbon \n binary'
+PerformanceOutputMultiCrested$best_f1$Species <- 'Crested Gibbon \n multi'
+PerformanceOutputMultiGrey$best_f1$Species <- 'Grey Gibbon \n multi'
 
 # Combine all F1 results into one dataframe
 CombinedDF <- as.data.frame(rbind.data.frame(
-  PerformanceOutputCrestedBinary$best_f1[,c("Species", "Training Data","N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")],
-  PerformanceOutputGreyBinary$best_f1[,c("Species", "Training Data","N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")],
-  PerformanceOutputMultiCrested$best_f1[,c("Species", "Training Data","N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")],
-  PerformanceOutputMultiGrey$best_f1[,c("Species", "Training Data","N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")]
+  PerformanceOutputCrestedBinary$best_f1[,c("Species","N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")],
+  PerformanceOutputGreyBinary$best_f1[,c("Species", "N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")],
+  PerformanceOutputMultiCrested$best_f1[,c("Species", "N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")],
+  PerformanceOutputMultiGrey$best_f1[,c("Species", "N epochs","CNN Architecture","Threshold","Precision","Recall","F1","AUC")]
 ))
+
+CombinedDF$`CNN Architecture` <- 
+  str_split_fixed(CombinedDF$`CNN Architecture`,
+                pattern = '_', n=2)[,1]
 
 # Round metrics and rename training types
 CombinedDFSubset <- CombinedDF
@@ -58,14 +62,11 @@ CombinedDFSubset$Precision <- round(CombinedDFSubset$Precision, 2)
 CombinedDFSubset$Recall <- round(CombinedDFSubset$Recall, 2)
 CombinedDFSubset$F1 <- round(CombinedDFSubset$F1, 2)
 CombinedDFSubset$AUC <- round(CombinedDFSubset$AUC, 2)
-CombinedDFSubset$`Training Data` <- ifelse(CombinedDFSubset$`Training Data` %in% c('imagescambodia', 'imagesmalaysia'), 'Binary', 'MultiClass')
-CombinedDFSubset$`Training Data` <- paste(CombinedDFSubset$Species, CombinedDFSubset$`Training Data`)
-CombinedDFSubset <- CombinedDFSubset[,-1]  # drop species column (already in Training Data)
 
 # Create unique ID to collapse identical results across epochs/thresholds
 CombinedDFSubset$`N epochs` <- as.factor(CombinedDFSubset$`N epochs`)
 CombinedDFSubset$Threshold <- as.factor(CombinedDFSubset$Threshold)
-CombinedDFSubset$UniqueID <- as.factor(paste(CombinedDFSubset$`Training Data`,
+CombinedDFSubset$UniqueID <- as.factor(paste(CombinedDFSubset$Species,
                                              CombinedDFSubset$`CNN Architecture`,
                                              CombinedDFSubset$Precision,
                                              CombinedDFSubset$Recall,
@@ -92,7 +93,7 @@ ForFlextableCollapsed <- ForFlextableCollapsed[,-which(names(ForFlextableCollaps
 
 # Create and format flextable
 CombinedDFSubsetFlextable <- flextable(ForFlextableCollapsed)
-CombinedDFSubsetFlextable <- merge_v(CombinedDFSubsetFlextable, j = c("Training Data"))
+CombinedDFSubsetFlextable <- merge_v(CombinedDFSubsetFlextable, j = c("Species"))
 CombinedDFSubsetFlextable <- valign(CombinedDFSubsetFlextable, valign = "top")
 CombinedDFSubsetFlextable
 
@@ -150,7 +151,7 @@ for (a in 1:length(UniqueID_single)) {
 }
 
 # Keep only final AUC table columns
-ForFlextableCollapsed <- ForFlextableCollapsed[,c("Training Data", "N epochs", "CNN Architecture", "AUC")]
+ForFlextableCollapsed <- ForFlextableCollapsed[,c("Training Data",  "CNN Architecture", "AUC")]
 ForFlextableCollapsed <- ForFlextableCollapsed[-which(duplicated(ForFlextableCollapsed)),]
 
 # Create and save AUC flextable
