@@ -3,12 +3,10 @@ library(ggpubr)
 library(dplyr)
 library(tidyr)
 #library(gibbonNetR)
-devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
-# We focus on the smaller test set for computational efficiency
 # Best performance using AUC- Grey binary ---------------------------------
 
-GreyGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V3/modelruns_repeatsubset',
+GreyGibbonPerformance <- list.files('results/part3/DataAugmentation_V4/modelruns_repeatsubset',
                                     full.names = T,recursive = T)
 
 GreyGibbonPerformanceSub <- GreyGibbonPerformance[str_detect(GreyGibbonPerformance,'Danum')]
@@ -19,7 +17,7 @@ GreyGibbonPerformanceDirs <- unique(dirname(GreyGibbonPerformanceSub))
 
 # Best performance using AUC- Crested binary ---------------------------------
 
-CrestedGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V3/modelruns_repeatsubset_Jahoo',
+CrestedGibbonPerformance <- list.files('results/part3/DataAugmentation_V4/modelruns_repeatsubset_Jahoo',
                                     full.names = T,recursive = T)
 
 CrestedGibbonPerformanceSub <- CrestedGibbonPerformance[str_detect(CrestedGibbonPerformance,'Jahoo')]
@@ -29,7 +27,7 @@ CrestedGibbonPerformanceSub <- CrestedGibbonPerformanceSub[str_detect(CrestedGib
 CrestedGibbonPerformanceDirs <- unique(dirname(CrestedGibbonPerformanceSub))
 
 # Best performance using AUC -Multi ----------------------------------------------
-GreyMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi',
+GreyMultiGibbonPerformance <- list.files('results/part3/DataAugmentation_V4//modelruns_repeatsubset_multi',
                                          full.names = T,recursive = T)
 
 GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMultiGibbonPerformance,'performance_tables_multi')]
@@ -37,7 +35,7 @@ GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMulti
 GreyMultiGibbonPerformanceDirs <- unique(dirname(GreyMultiGibbonPerformanceSub))
 
 # Best performance using AUC -Multi ----------------------------------------------
-CrestedMultiGibbonPerformance <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi',
+CrestedMultiGibbonPerformance <- list.files('results/part3/DataAugmentation_V4//modelruns_repeatsubset_multi',
                                          full.names = T,recursive = T)
 
 CrestedMultiGibbonPerformanceSub <- CrestedMultiGibbonPerformance[str_detect(CrestedMultiGibbonPerformance,'performance_tables_multi')]
@@ -103,41 +101,26 @@ best_auc_per_training_data <- CombinedF1all %>%
   slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
   ungroup()
 
-# Now combine to check results
-ggscatter(data=best_auc_per_training_data,
-          x='TrainingDataType',y='AUC',
-          facet.by=c('Class','CNN.Architecture'),
-          color = 'N.epochs',scales='free', 
-         )+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  xlab('')+scale_color_manual(values = c('yellow','purple'))
 
-# now try to find best max F1 given high AUC
-best_F1_per_training_data <- best_auc_per_training_data %>%
-  group_by(Class) %>%
-  filter(F1 == max(F1, na.rm = TRUE)) %>%
-  slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
-  ungroup()
+# Create pdf to save for online supporting material -----------------------
+pdf(file = 'results/Online Supporting Material Figure 1.pdf', width = 10, height = 10)
 
-best_F1_per_training_data
+# Create the plot
+p <- ggscatter(data = best_auc_per_training_data,
+               x = 'TrainingDataType', 
+               y = 'AUC',
+               facet.by = c('Class', 'CNN.Architecture'),
+               color = 'N.epochs',
+               scales = 'free') +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  xlab('') +
+  scale_color_manual(values = c('yellow', 'purple'))
 
-best_F1_per_training_data$CNN.Architecture <- 
-  paste(best_F1_per_training_data$CNN.Architecture,
-      best_F1_per_training_data$N.epochs,sep='_')
+# Print the plot
+print(p)
 
-ggscatter(data=best_F1_per_training_data,
-          x='TrainingDataType',y='F1',color='CNN.Architecture',
-          facet.by=c('Class'),
-          
-)+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
-  xlab('')#+scale_color_manual(values = c('yellow','purple'))
+# Add figure caption
+grid::grid.text("OSM Figure 1. AUC-ROC scores across training data augmentation types and architectures. \n AUC-ROC was calculated for the original test data split.",
+                x = 0.5, y = 0.02, gp = grid::gpar(fontsize = 12))
 
-best_auc_per_training_data <- CombinedF1all %>%
-  group_by(Class) %>%
-  filter(AUC == max(AUC, na.rm = TRUE)) %>%
-  filter(F1 == max(F1, na.rm = TRUE)) %>%
-  slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
-  ungroup()
-
-as.data.frame(best_auc_per_training_data)
+dev.off()

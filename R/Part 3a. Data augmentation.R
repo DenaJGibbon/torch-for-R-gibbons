@@ -2,22 +2,17 @@
 library(dplyr)
 library(flextable)
 library(dplyr)
-#library(gibbonNetR)
-devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
-
-# Goal is to find the best performing model combination with data augmentation
-# Will use the small test set, and use the large one for final reporting
-# We focus on the smaller test set for computational efficiency
+library(gibbonNetR)
 
 # Grey Gibbon Binary Model Training ---------------------------------------
 
-TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Danum Images/',
+TrainingFolders <- list.files('data/DataAugmentation/images/Danum Images/',
                               full.name=T)
 
 # Location of spectrogram images for testing
-test.data.path <-"/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Danum/test/"
+test.data.path <-"data/training_images_sorted/Danum/test/"
 
-output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset/'
+output.dir <-'results/part3/DataAugmentation_V4/modelruns_repeatsubset/'
 
 # Number of epochs to include
 epoch.iterations <- c(1,5)
@@ -26,6 +21,9 @@ epoch.iterations <- c(1,5)
 architectures <-  c('alexnet', 'resnet50')
 
 freeze.param <- c(TRUE)
+
+
+# Grey Gibbon Binary Models with jitter -----------------------------------
 
 for(d in 1:1){
   for (a in 1:length(architectures)) {
@@ -63,10 +61,12 @@ for(d in 1:1){
   }
 }
 
+
+# Grey Gibbon Binary Models without jitter --------------------------------
 for(d in 1:1){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
-      for(c in 2:length(TrainingFolders)){
+      for(c in 1:length(TrainingFolders)){
 
         input.data.path <-  TrainingFolders[c]
 
@@ -100,18 +100,16 @@ for(d in 1:1){
 }
 
 # Crested Gibbon Binary Model Training ---------------------------------------
-
-# TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Jahoo Images/',
-#                               full.name=T)
-
-TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Jahoo Images/',
+TrainingFolders <- list.files('data/DataAugmentation/images/Jahoo Images/',
                               full.name=T)
 
 # Location of spectrogram images for testing
-test.data.path <-'/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Jahoo/test/'
+test.data.path <-'data/training_images_sorted/Jahoo/test/'
 
-output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_Jahoo/'
+output.dir <-'results/part3/DataAugmentation_V4/modelruns_repeatsubset_Jahoo/'
 
+
+# Crested Gibbon Binary Models with jitter --------------------------------
 for(d in 1:1){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
@@ -150,6 +148,8 @@ for(d in 1:1){
     }
   }
 }
+
+# Crested Gibbon Binary Models without jitter --------------------------------
 
 for(d in 1:1){
   for (a in 1:length(architectures)) {
@@ -191,31 +191,19 @@ for(d in 1:1){
 }
 
 # Multi-class Model Training ---------------------------------------
-library(dplyr)
-library(flextable)
-library(dplyr)
-#library(gibbonNetR)
-devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
-
-# Number of epochs to include
-epoch.iterations <- c(1,5)
-
-# Train the models specifying different architectures
-architectures <-  c('alexnet', 'resnet50')
-
-freeze.param <- c(TRUE)
-
-
-TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined/',
+TrainingFolders <- list.files('data/DataAugmentation/images/Combined/',
                               full.name=T)
 
 TrainingFolders <- TrainingFolders[1:4]
 
 # Location of spectrogram images for testing
-test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined/test/'
-#test.data.path <-'/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined//CombinedTest/test'
+test.data.path <- 'data/training_images_sorted/Combined/test/'
 
-output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi/'
+# Output directory for results
+output.dir <-'results/part3/DataAugmentation_V4/modelruns_repeatsubset_multi/'
+
+
+# Multiclass Models with jitter -------------------------------------------
 
 for(d in 1:1){
   for (a in 1:length(architectures)) {
@@ -247,6 +235,8 @@ for(d in 1:1){
     }
   }
 }
+
+# Multiclass Models without jitter -------------------------------------------
 
 for(d in 1:1){
   for (a in 1:length(architectures)) {
