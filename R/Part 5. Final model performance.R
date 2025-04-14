@@ -14,7 +14,7 @@ test.data.path <- 'data/CombinedImagesWAEvaluation/Danum/'
 trained_models_dir <-  'data/CombinedImagesWAEvaluation/topmodels/DanumTopModel/'
 
 
-output_dir <- paste('data/CombinedImagesWAEvaluation/final_test_WA/', 
+output_dir <- paste('results/part5/final_test_WA/', 
                       basename(trained_models_dir),'/',sep='')
   
 # dir.create(output_dir,recursive = TRUE)
@@ -35,7 +35,7 @@ test.data.path <- 'data/CombinedImagesWAEvaluation/Jahoo/'
 trained_models_dir <-  'data/CombinedImagesWAEvaluation/topmodels/JahooTopModel/'
 
 
-output_dir <- paste('data/CombinedImagesWAEvaluation/final_test_WA/', 
+output_dir <- paste('results/part5/final_test_WA/', 
                     basename(trained_models_dir),'/',sep='')
 
 # dir.create(output_dir,recursive = TRUE)
@@ -52,13 +52,13 @@ output_dir <- paste('data/CombinedImagesWAEvaluation/final_test_WA/',
 
 # Combine and plot results ------------------------------------------------
 # Load top-performing model results for Grey Gibbons (Danum)
-DanumTop <- read.csv('data/CombinedImagesWAEvaluation/final_test_WA/DanumTopModel/performance_tables_multi_trained/Combined copy _jitter_5_resnet50_model_TransferLearningTrainedModel.csv')
+DanumTop <- read.csv('results/part5/final_test_WA/DanumTopModel/performance_tables_multi_trained/Combined copy _jitter_5_resnet50_model_TransferLearningTrainedModel.csv')
 DanumTop <- subset(DanumTop, Class == 'GreyGibbons')  # Filter to relevant class
 max(na.omit(DanumTop$AUC))  # Check highest AUC
 max(na.omit(DanumTop$F1))   # Check highest F1
 
 # Load top-performing model results for Crested Gibbons (Jahoo)
-JahooTop <- read.csv('data/CombinedImagesWAEvaluation/final_test_WA/JahooTopModel/performance_tables_multi_trained/Combined copy _jitter_5_resnet50_model_TransferLearningTrainedModel.csv')
+JahooTop <- read.csv('results/part5/final_test_WA/JahooTopModel/performance_tables_multi_trained/Combined copy _jitter_5_resnet50_model_TransferLearningTrainedModel.csv')
 JahooTop <- subset(JahooTop, Class == 'CrestedGibbons')  # Filter to relevant class
 max(na.omit(JahooTop$AUC))  # Check highest AUC
 max(na.omit(JahooTop$F1))   # Check highest F1
@@ -102,6 +102,8 @@ best_all <- bind_rows(best_by_f1, best_by_precision, best_by_recall) %>%
 
 # Create and save a formatted Word table
 best_all_flextable <- flextable::flextable(best_all)
+
+#NOTE: need to make a few manual changes to formatting for publication
 flextable::save_as_docx(best_all_flextable,
                         path = 'results/Table 6. Final Model Results.docx')
 
