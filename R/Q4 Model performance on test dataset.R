@@ -1,14 +1,20 @@
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(ggpubr)
+library(viridis)
+
 devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
 # Deply trained models over new test data ----------------------------------------
-test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/testimages/images_combined/test/'
+test.data.path <- '/Volumes/DJC Files/MultiSpeciesTransferLearning/TestData/MaliauVietnamCombined/test/'
 
 trained_models_dir <-  list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/DataAugmentation_V4/modelruns_repeatsubset_multi/',
                                   full.names = TRUE)
 
 for(a in 1:length(trained_models_dir)){
 
-  output_dir <- paste('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata/', 
+  output_dir <- paste('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata_v1/', 
         basename(trained_models_dir[a]),'/',sep='')
   
   dir.create(output_dir)
@@ -25,7 +31,7 @@ for(a in 1:length(trained_models_dir)){
 
 # Evaluate performance ---------------------------------------------
 
-PerformanceTestDirs <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata',
+PerformanceTestDirs <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata_v1/',
                                   full.names = TRUE)
 
 CombinedTestPerformanceAll <- data.frame()

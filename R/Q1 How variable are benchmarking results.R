@@ -2,10 +2,7 @@
 library(dplyr)
 library(flextable)
 library(dplyr)
-#library(gibbonNetR)
-
-# Goal is test how variable results are
-# Will use the small test set, and use the large one for final reporting
+library(gibbonNetR)
 
 # Set training parameters -------------------------------------------------
 # Number of epochs to include
@@ -18,16 +15,15 @@ architectures <-  c('alexnet', 'resnet18', 'resnet50', 'vgg16', 'vgg19', 'resnet
 freeze.param <- c(FALSE,TRUE)
 
 # Grey Gibbon Binary Model Training ---------------------------------------
-
-TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Danum Images/',
-                              full.name=T)
+TrainingFolders <- 'data/training_images_sorted/Danum'
 
 # Location of spectrogram images for testing
-test.data.path <-"/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Danum/test/"
+test.data.path <-'data/training_images_sorted/Danum/test/'
 
-output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset/'
+# Location of output directory
+output.dir <-'results/modelruns_repeatsubset/'
 
-for(d in 3:3){
+for(d in 1:3){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
       for(c in 1:1){
@@ -63,18 +59,14 @@ gc()
 
 # Crested Gibbon Binary Model Training ---------------------------------------
 
-# TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Jahoo Images/',
-#                               full.name=T)
-
-TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Jahoo Images/',
-                              full.name=T)
+TrainingFolders <- 'data/training_images_sorted/Jahoo'
 
 # Location of spectrogram images for testing
-test.data.path <-'/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Jahoo/test/'
+test.data.path <-'/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/training_images_sorted/Jahoo/test/'
 
-output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_Jahoo/'
+output.dir <-'results/modelruns_repeatsubset_Jahoo/'
 
-for(d in 3:3){
+for(d in 1:3){
   for (a in 1:length(architectures)) {
     for (b in 1:length(freeze.param)) {
       for(c in 1:1){
@@ -112,27 +104,13 @@ for(d in 3:3){
 gc()
 
 # Multi-class Model Training ---------------------------------------
-devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
 
-# Number of epochs to include
-epoch.iterations <- c(1)
-
-# Train the models specifying different architectures
-architectures <-  c( 'resnet18', 'resnet50')
-
-# Whether to fine-tune or use as feature extractor
-freeze.param <- c(FALSE,TRUE)
-
-TrainingFolders <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined/',
-                              full.name=T)
-
-TrainingFolders <- TrainingFolders[1]
+TrainingFolders <- '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/training_images_sorted/Combined'
 
 # Location of spectrogram images for testing
-test.data.path <- '/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies/data/training_images_sorted/Combined/test/'
-#test.data.path <-'/Volumes/DJC Files/MultiSpeciesTransferLearning/DataAugmentation/images/Combined//CombinedTest/test'
+test.data.path <- 'data/training_images_sorted/Combined/test/'
 
-output.dir <-'/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/Benchmarking_random_variation_bigmodels/modelruns_repeatsubset_multi_updateAUC_1epoch/'
+output.dir <-'results/modelruns_repeatsubset_multi_updateAUC_1epoch/'
 
 for(d in 1:3){
   for (a in 1:length(architectures)) {

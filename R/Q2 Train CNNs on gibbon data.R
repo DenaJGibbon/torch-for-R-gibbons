@@ -2,7 +2,6 @@
 library(dplyr)
 library(flextable)
 library(dplyr)
-library(gibbonNetR)
 
 # Optional setwd
 setwd("/Users/denaclink/Desktop/RStudioProjects/Gibbon-transfer-learning-multispecies")
