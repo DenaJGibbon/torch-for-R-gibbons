@@ -1,20 +1,18 @@
 # Load required packages ---------------------------------------------------
 library(gibbonNetR)
 library(flextable)
-# Optional: Load local dev version
-# devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
-
+library(gibbonNetR)
 # -------------------- Evaluate Binary Model Performance -------------------
 
 # Crested Gibbon (Binary Model)
-performancetables.dir.crested <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir.crested <- 'results/part2/InitialModelEvaluation/model_output_1/_imagescambodia_binary_unfrozen_TRUE_/performance_tables/'
 PerformanceOutputCrestedBinary <- gibbonNetR::get_best_performance(
   performancetables.dir = performancetables.dir.crested,
   class = 'Gibbons',
   model.type = "binary", Thresh.val = 0)
 
 # Grey Gibbon (Binary Model)
-performancetables.dir.grey <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/'
+performancetables.dir.grey <- 'results/part2/InitialModelEvaluation/model_output_1/_imagesmalaysia_binary_unfrozen_TRUE_/performance_tables/'
 PerformanceOutputGreyBinary <- gibbonNetR::get_best_performance(
   performancetables.dir = performancetables.dir.grey,
   class = 'Gibbons',
@@ -22,7 +20,7 @@ PerformanceOutputGreyBinary <- gibbonNetR::get_best_performance(
 
 # -------------------- Evaluate Multi-Class Model Performance ----------------
 
-performancetables.dir.multi <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/rerun_updated_AUC/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi_trained/'
+performancetables.dir.multi <- 'results/part2/InitialModelEvaluation/model_output_1/rerun_updated_AUC/_imagesmulti_multi_unfrozen_TRUE_/performance_tables_multi_trained/'
 
 # Crested Gibbon (Multi-Class Model)
 PerformanceOutputMultiCrested <- gibbonNetR::get_best_performance(
@@ -99,7 +97,7 @@ CombinedDFSubsetFlextable
 
 # Save F1 results
 flextable::save_as_docx(CombinedDFSubsetFlextable,
-                        path = 'Online Supporting Material Table 1. Best F1 Performance on training split.docx')
+                        path = 'results/Online Supporting Material Table 1. Best F1 Performance on training split.docx')
 
 # -------------------- Format and Combine AUC Scores ------------------------
 
@@ -159,31 +157,4 @@ CombinedDFAUCSubsetFlextableAUC <- flextable(ForFlextableCollapsed)
 CombinedDFAUCSubsetFlextableAUC
 
 flextable::save_as_docx(CombinedDFAUCSubsetFlextableAUC,
-                        path = 'Online Supporting Material Table 2. Best AUC Performance on training split.docx')
-
-
-# Does larger test dataset change AUC? -----------------------------------
-performancetables.dir.multi <- '/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/InitialModelEvaluation/model_output_1/evaluation_WA/performance_tables_multi_trained/'
-
-# Crested Gibbon (Multi-Class Model)
-PerformanceOutputMultiCrested <- gibbonNetR::get_best_performance(
-  performancetables.dir = performancetables.dir.multi,
-  class = 'CrestedGibbons',
-  model.type = "multi", Thresh.val = 0)
-
-PerformanceOutputMultiCrested$best_auc$AUC
-PerformanceOutputMultiCrested$best_f1$F1
-PerformanceOutputMultiCrested$pr_plot
-
-# Grey Gibbon (Multi-Class Model)
-PerformanceOutputMultiGrey <- gibbonNetR::get_best_performance(
-  performancetables.dir = performancetables.dir.multi,
-  class = 'GreyGibbons',
-  model.type = "multi", Thresh.val = 0)
-
-PerformanceOutputMultiGrey$best_auc$AUC
-PerformanceOutputMultiGrey$best_f1$F1
-as.data.frame(PerformanceOutputMultiGrey$best_auc)
-as.data.frame(PerformanceOutputMultiGrey$best_f1)
-PerformanceOutputMultiGrey$pr_plot
-
+                        path = 'results/Online Supporting Material Table 2. Best AUC Performance on training split.docx')
