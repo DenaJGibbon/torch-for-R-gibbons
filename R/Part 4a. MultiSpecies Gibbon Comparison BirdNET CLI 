@@ -1,0 +1,22 @@
+cd /Users/denaclink/Documents/BirdNETUpdate/BirdNET-Analyzer
+conda activate birdnet-analyzer
+
+# NOTE: this is the script for the command line interface to train BirdNET
+# You will need to update the filepaths to match where they are on your computer
+# For installation and usage see: https://github.com/birdnet-team/BirdNET-Analyzer
+
+# Grey gibbons
+python train.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TrainingDataWavs/DanumClipsBirdNET/train/' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/Danum/Binary_Classifier_comparison_fold_1.tflite' --fmin 500 --fmax 2000
+python analyze.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TestData/MaliauClips/' --classifier '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/Danum/Binary_Classifier_comparison_fold_1.tflite' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/Danum/BirdNETOutput/' --fmin 500 --fmax 2000
+
+# Crested gibbons
+python train.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TrainingDataWavs/JahooClipsBirdNET/train/' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/Jahoo/Binary_Classifier_comparison_fold_1.tflite' --fmin 500 --fmax 3000
+python analyze.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TestData/Vietnam/ValidationClipsVietnam/' --classifier '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/Jahoo/Binary_Classifier_comparison_fold_1.tflite' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/Jahoo/BirdNETOutput/' --fmin 500 --fmax 3000
+
+# Multi class 
+python train.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TrainingDataWavs/CombinedClipsBirdNET/' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/MultiClass/Multi_Classifier_comparison_fold_1.tflite' --fmin 500 --fmax 2000
+python analyze.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TestData/MaliauVietnamCombinedWavs/' --classifier '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/MultiClass/Multi_Classifier_comparison_fold_1.tflite' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/MultiClass/BirdNETOutput/' --fmin 500 --fmax 2000
+
+# Multi class 3000 Hz
+python train.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TrainingDataWavs/CombinedClipsBirdNET/' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/MultiClass/Multi3000hz_Classifier_comparison_fold_1.tflite' --fmin 500 --fmax 3000
+python analyze.py --i '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/TestData/MaliauVietnamCombinedWavs/' --classifier '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/MultiClass/Multi3000hz_Classifier_comparison_fold_1.tflite' --o '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/results/part4/BirdNETComparison/MultiClass/BirdNETOutput3000hz/' --fmin 500 --fmax 3000

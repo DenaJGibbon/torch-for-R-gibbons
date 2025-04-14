@@ -4,10 +4,10 @@ library(caret)
 
 # Crested gibbon binary BirdNET ---------------------------------------------------
 
-ClipDetections <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/Jahoo/BirdNETOutput',
+ClipDetections <- list.files('results/part4/BirdNETComparison/Jahoo/BirdNETOutput',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/Jahoo/BirdNETOutput/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/Jahoo/BirdNETOutput/',
                                   recursive = T,full.names = F)
 
 BirdNETCrestedBinaryPerformanceDF <- data.frame()
@@ -116,10 +116,10 @@ CrestedGibbonBirdNETBinaryPlot
 
 # Grey gibbon binary BirdNET------------------------------------------------------
 
-ClipDetections <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/Danum/BirdNETOutput',
+ClipDetections <- list.files('results/part4/BirdNETComparison/Danum/BirdNETOutput',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/Danum/BirdNETOutput/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/Danum/BirdNETOutput/',
                                   recursive = T,full.names = F)
 
 BirdNETGreyBinaryPerformanceDF <- data.frame()
@@ -233,10 +233,10 @@ GreyGibbonBirdNETBinaryPlot
 
 
 # Grey gibbon multi BirdNET -------------------------------------------------------
-ClipDetections <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/MultiClass/BirdNETOutput',
+ClipDetections <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/MultiClass/BirdNETOutput/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput/',
                                   recursive = T,full.names = F)
 
 BirdNETGreyMultiPerformanceDF <- data.frame()
@@ -346,10 +346,10 @@ GreyGibbonBirdNETMultiPlot
 
 
 # Crested multi BirdNET-----------------------------------------------------------
-ClipDetections <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/MultiClass/BirdNETOutput3000hz',
+ClipDetections <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput3000hz',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/BirdNETComparison/MultiClass/BirdNETOutput3000hz/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput3000hz/',
                                   recursive = T,full.names = F)
 
 BirdNETCrestedMultiPerformanceDF <- data.frame()
@@ -457,7 +457,7 @@ CrestedGibbonBirdNETMultiPlot
 
 # Multi Grey gibbon --------------------------------------------------
 
-DanumFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata/Combined copy _jitter_1_Combined copy _jitter_multi_unfrozen_TRUE_/',
+DanumFiles <- list.files('results/part3/TestOutput/multi_all_augmented_testdata_v1/Combined copy _jitter_1_Combined copy _jitter_multi_unfrozen_TRUE_/',
                          recursive = TRUE,full.names = TRUE)
 
 DanumFilesCombined <- DanumFiles %>%
@@ -497,7 +497,7 @@ GreyGibbonCNNMultiPlot
 
 
 # Multi Crested CNN  ------------------------------------------------------
-JahooFiles <- list.files('/Volumes/DJC Files/MultiSpeciesTransferLearning_R1/TestOutput/multi_all_augmented_testdata/Combined copy _jitter_1_Combined copy _jitter_multi_unfrozen_TRUE_/',
+JahooFiles <- list.files('results/part3/TestOutput/multi_all_augmented_testdata_v1/Combined copy _jitter_1_Combined copy _jitter_multi_unfrozen_TRUE_/',
                          recursive = TRUE,full.names = TRUE)
 
 JahooFilesCombined <- JahooFiles %>%
@@ -539,16 +539,27 @@ CrestedGibbonCNNMultiPlot
 
 
 
-pdf('BirdNETComparison.pdf',height=7,width=9)
-cowplot::plot_grid(CrestedGibbonBirdNETBinaryPlot, GreyGibbonBirdNETBinaryPlot,
-                   #CrestedGibbonCNNBinaryPlot,GreyGibbonCNNBinaryPlot,
-                   CrestedGibbonBirdNETMultiPlot,GreyGibbonBirdNETMultiPlot,
-                   CrestedGibbonCNNMultiPlot, GreyGibbonCNNMultiPlot,
-                   nrow=3, 
-                   labels=c('A)','B)','C)','D)','E)','F)')
-                   )
-graphics.off()
+pdf('results/Online Supporting Material Figure 2. BirdNETComparison.pdf', height = 7, width = 9)
 
+# Combine all plots into a single panel
+combined_plot <- plot_grid(
+  CrestedGibbonBirdNETBinaryPlot, GreyGibbonBirdNETBinaryPlot,
+  CrestedGibbonBirdNETMultiPlot, GreyGibbonBirdNETMultiPlot,
+  CrestedGibbonCNNMultiPlot, GreyGibbonCNNMultiPlot,
+  nrow = 3,
+  labels = c('A)', 'B)', 'C)', 'D)', 'E)', 'F)')
+)
+
+# Add caption below the combined plot
+captioned_plot <- ggdraw() +
+  draw_plot(combined_plot, 0, 0.05, 1, 0.95) +
+  draw_label("OSM Figure 2. Performance comparison of BirdNET and CNN models for binary and multi-class classification of gibbon calls.",
+             x = 0.5, y = 0.01, hjust = 0.5, size = 10)
+
+# Print to the PDF device
+print(captioned_plot)
+
+dev.off()
 
 
 # Create Comparision Table  ------------------------------------------------------------------
