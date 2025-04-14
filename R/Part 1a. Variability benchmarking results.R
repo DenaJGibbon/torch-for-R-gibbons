@@ -21,7 +21,7 @@ TrainingFolders <- 'data/training_images_sorted/Danum'
 test.data.path <-'data/training_images_sorted/Danum/test/'
 
 # Location of output directory
-output.dir <-'results/modelruns_repeatsubset/'
+output.dir <-'results/part1/modelruns_repeatsubset/'
 
 for(d in 1:3){
   for (a in 1:length(architectures)) {
@@ -64,7 +64,7 @@ TrainingFolders <- 'data/training_images_sorted/Jahoo'
 # Location of spectrogram images for testing
 test.data.path <-'/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/training_images_sorted/Jahoo/test/'
 
-output.dir <-'results/modelruns_repeatsubset_Jahoo/'
+output.dir <-'results/part1/modelruns_repeatsubset_Jahoo/'
 
 for(d in 1:3){
   for (a in 1:length(architectures)) {
@@ -110,7 +110,7 @@ TrainingFolders <- '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/train
 # Location of spectrogram images for testing
 test.data.path <- 'data/training_images_sorted/Combined/test/'
 
-output.dir <-'results/modelruns_repeatsubset_multi_updateAUC_1epoch/'
+output.dir <-'results/part1/modelruns_repeatsubset_multi_updateAUC_1epoch/'
 
 for(d in 1:3){
   for (a in 1:length(architectures)) {

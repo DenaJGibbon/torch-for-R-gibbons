@@ -1,12 +1,11 @@
 library(stringr)
 library(ggpubr)
-library(tidyr)
 library(dplyr)
-
+library(tidyr)
 
 # Question: Which data augmentation + fine-tuning approach works best?
 # Best performance using AUC- Grey binary ---------------------------------
-GreyGibbonPerformance <- list.files('results/modelruns_repeatsubset',
+GreyGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset',
                                     full.names = T,recursive = T)
 
 GreyGibbonPerformanceSub <- GreyGibbonPerformance[str_detect(GreyGibbonPerformance,'Danum')]
@@ -17,7 +16,7 @@ GreyGibbonPerformanceDirs <- unique(dirname(GreyGibbonPerformanceSub))
 
 # Best performance using AUC- Crested binary ---------------------------------
 
-CrestedGibbonPerformance <- list.files('results/modelruns_repeatsubset_Jahoo',
+CrestedGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset_Jahoo',
                                     full.names = T,recursive = T)
 
 CrestedGibbonPerformanceSub <- CrestedGibbonPerformance[str_detect(CrestedGibbonPerformance,'Jahoo')]
@@ -27,7 +26,7 @@ CrestedGibbonPerformanceSub <- CrestedGibbonPerformanceSub[str_detect(CrestedGib
 CrestedGibbonPerformanceDirs <- unique(dirname(CrestedGibbonPerformanceSub))
 
 # Best performance using AUC - Grey Multi ----------------------------------------------
-GreyMultiGibbonPerformance <- list.files('results/modelruns_repeatsubset_multi_updateAUC_1epoch',
+GreyMultiGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset_multi_updateAUC_1epoch',
                                          full.names = T,recursive = T)
 
 GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMultiGibbonPerformance,'performance_tables_multi')]
@@ -36,7 +35,7 @@ GreyMultiGibbonPerformanceDirs <- unique(dirname(GreyMultiGibbonPerformanceSub))
 
 
 # Best performance using AUC - Multi Crested ----------------------------------------------
-CrestedMultiGibbonPerformance <- list.files('results/modelruns_repeatsubset_multi_updateAUC_1epoch',
+CrestedMultiGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset_multi_updateAUC_1epoch',
                                          full.names = T,recursive = T)
 
 CrestedMultiGibbonPerformanceSub <- CrestedMultiGibbonPerformance[str_detect(CrestedMultiGibbonPerformance,'performance_tables_multi')]
@@ -84,7 +83,7 @@ CombinedF1all <-
                    CrestedGibbonMultiPerformanceCombined,GreyGibbonMultiPerformanceCombined)
 
 
-Randomization <- str_split_fixed(CombinedF1all$Folder,pattern = '/', n=4)[,3]
+Randomization <- str_split_fixed(CombinedF1all$Folder,pattern = '/', n=5)[,4]
 
 CombinedF1all$Randomization <-str_split_fixed(Randomization,pattern = '_', n=3)[,2]
 
