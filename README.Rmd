@@ -57,7 +57,7 @@ This repository provides a comprehensive pipeline for training, evaluating, and 
   Applies the trained models to passive acoustic monitoring (PAM) datasets.
 
 - **Part 7. Call Density Plots.R**  
-  Generates visualizations of call densities across sites and times.
+  Generates visualizations of call densities across space.
 
 
 ## Getting Started

@@ -57,7 +57,7 @@ deployment across a range of configurations and test conditions.
   datasets.
 
 - **Part 7. Call Density Plots.R**  
-  Generates visualizations of call densities across sites and times.
+  Generates visualizations of call densities across space.
 
 ## Getting Started
 
