@@ -7,7 +7,7 @@ library(caret)
 ClipDetections <- list.files('results/part4/BirdNETComparison/Jahoo/BirdNETOutput',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/Jahoo/BirdNETOutput/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/Jahoo/BirdNETOutput',
                                   recursive = T,full.names = F)
 
 BirdNETCrestedBinaryPerformanceDF <- data.frame()
@@ -119,7 +119,7 @@ CrestedGibbonBirdNETBinaryPlot
 ClipDetections <- list.files('results/part4/BirdNETComparison/Danum/BirdNETOutput',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/Danum/BirdNETOutput/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/Danum/BirdNETOutput',
                                   recursive = T,full.names = F)
 
 BirdNETGreyBinaryPerformanceDF <- data.frame()
@@ -236,7 +236,7 @@ GreyGibbonBirdNETBinaryPlot
 ClipDetections <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput',
                                   recursive = T,full.names = F)
 
 BirdNETGreyMultiPerformanceDF <- data.frame()
@@ -349,7 +349,7 @@ GreyGibbonBirdNETMultiPlot
 ClipDetections <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput3000hz',
                              recursive = T,full.names = T)
 
-ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput3000hz/',
+ClipDetectionsShort <- list.files('results/part4/BirdNETComparison/MultiClass/BirdNETOutput3000hz',
                                   recursive = T,full.names = F)
 
 BirdNETCrestedMultiPerformanceDF <- data.frame()

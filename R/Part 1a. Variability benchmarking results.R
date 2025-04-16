@@ -62,7 +62,7 @@ gc()
 TrainingFolders <- 'data/training_images_sorted/Jahoo'
 
 # Location of spectrogram images for testing
-test.data.path <-'/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/training_images_sorted/Jahoo/test/'
+test.data.path <-'data/training_images_sorted/Jahoo/test/'
 
 output.dir <-'results/part1/modelruns_repeatsubset_Jahoo/'
 
@@ -105,7 +105,7 @@ gc()
 
 # Multi-class Model Training ---------------------------------------
 
-TrainingFolders <- '/Volumes/DJC Files/torch-for-R-gibbon-Zenodo data/data/training_images_sorted/Combined'
+TrainingFolders <- 'data/training_images_sorted/Combined'
 
 # Location of spectrogram images for testing
 test.data.path <- 'data/training_images_sorted/Combined/test/'
