@@ -97,7 +97,7 @@ CombinedDFSubsetFlextable
 
 # Save F1 results
 flextable::save_as_docx(CombinedDFSubsetFlextable,
-                        path = 'results/Online Supporting Material Table 1. Best F1 Performance on training split.docx')
+                        path = 'results/tablesandfigures/Online Supporting Material Table 1. Best F1 Performance on training split.docx')
 
 # -------------------- Format and Combine AUC Scores ------------------------
 
@@ -157,4 +157,4 @@ CombinedDFAUCSubsetFlextableAUC <- flextable(ForFlextableCollapsed)
 CombinedDFAUCSubsetFlextableAUC
 
 flextable::save_as_docx(CombinedDFAUCSubsetFlextableAUC,
-                        path = 'results/Online Supporting Material Table 2. Best AUC Performance on training split.docx')
+                        path = 'results/tablesandfigures/Online Supporting Material Table 2. Best AUC Performance on training split.docx')

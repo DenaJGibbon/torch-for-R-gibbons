@@ -103,7 +103,7 @@ best_auc_per_training_data <- CombinedF1all %>%
 
 
 # Create pdf to save for online supporting material -----------------------
-pdf(file = 'results/Online Supporting Material Figure 1.pdf', width = 10, height = 10)
+pdf(file = 'results/tablesandfigures/Online Supporting Material Figure 1.pdf', width = 10, height = 10)
 
 # Create the plot
 p <- ggscatter(data = best_auc_per_training_data,
