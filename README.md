@@ -12,6 +12,26 @@ gibbon call detection using the `torch` and `gibbonNetR` packages in R.
 It includes data preprocessing, model training, evaluation, and
 deployment across a range of configurations and test conditions.
 
+## Getting Started
+
+### Prerequisites
+
+#### If you don’t have devtools installed
+
+install.packages(“devtools”)
+
+#### Install gibbonNetR
+
+devtools::install_github(“<https://github.com/DenaJGibbon/gibbonNetR>”)
+
+For detailed usage instructions and examples, refer to the gibbonNetR
+documentation (<https://denajgibbon.github.io/gibbonNetR/>).
+
+Current citation: Clink, Dena J., et al. “Automated detection of gibbon
+calls from passive acoustic monitoring data using convolutional neural
+networks in the” torch for R” ecosystem.” arXiv preprint
+arXiv:2407.09976 (2024).
+
 ## Repository Structure
 
 ### R Scripts Overview
@@ -58,19 +78,3 @@ deployment across a range of configurations and test conditions.
 
 - **Part 7. Call Density Plots.R**  
   Generates visualizations of call densities across space.
-
-## Getting Started
-
-### Prerequisites
-
-Ensure the following packages are installed: install.packages(c(
-“torch”, “dplyr”, “tidyr”, “ggplot2”, “stringr”, “viridis”, “flextable”,
-“readr” ))
-
-For detailed usage instructions and examples, refer to the gibbonNetR
-documentation (<https://denajgibbon.github.io/gibbonNetR/>).
-
-Current citation: Clink, Dena J., et al. “Automated detection of gibbon
-calls from passive acoustic monitoring data using convolutional neural
-networks in the” torch for R” ecosystem.” arXiv preprint
-arXiv:2407.09976 (2024).
