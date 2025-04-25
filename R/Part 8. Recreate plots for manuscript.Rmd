@@ -22,8 +22,6 @@ source(here("R", "Part 3c. Evaluation data augmentation on different test set.R"
 
 source(here("R", "Part 4b. Comparison with BirdNET.R"))
 
-source(here("R", "Part 5. Final model performance.R"))
-
 ```
 
 ### Figure 4.
@@ -87,6 +85,7 @@ CombinedPerformanceTableFT
 
 # Figure 6.
 ```{r, echo=FALSE, warning=FALSE}
+source(here::here("R", "Part 5. Final model performance.R"))
 # Plot metric values across threshold values for each class
 ggplot(CombinedFinal_long, aes(x = Threshold, y = Score, color = Metric, linetype = Metric)) +
   geom_line(size = 1) +
