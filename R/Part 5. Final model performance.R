@@ -103,9 +103,10 @@ best_all <- bind_rows(best_by_f1, best_by_precision, best_by_recall) %>%
 # Create and save a formatted Word table
 best_all_flextable <- flextable::flextable(best_all)
 
+best_all_flextable
 #NOTE: need to make a few manual changes to formatting for publication
-flextable::save_as_docx(best_all_flextable,
-                        path = 'results/Table 6. Final Model Results.docx')
+# flextable::save_as_docx(best_all_flextable,
+#                         path = 'results/Table 6. Final Model Results.docx')
 
 # Reshape CombinedFinal for plotting metric trends across thresholds
 CombinedFinal_long <- CombinedFinal %>%

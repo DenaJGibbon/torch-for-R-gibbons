@@ -1,6 +1,12 @@
 library(ggpubr)
 library(plyr)
 library(caret)
+library(dplyr)
+library(purrr)
+library(tidyr)
+library(readr)
+library(cowplot)
+library(flextable)
 
 # Crested gibbon binary BirdNET ---------------------------------------------------
 
@@ -637,6 +643,6 @@ CombinedPerformanceTableFT <-
   flextable(CombinedPerformanceTable)
 
 
-flextable::save_as_docx(CombinedPerformanceTableFT,
-                        path='BirdNETComparisonTable.docx')
+# flextable::save_as_docx(CombinedPerformanceTableFT,
+#                         path='BirdNETComparisonTable.docx')
 

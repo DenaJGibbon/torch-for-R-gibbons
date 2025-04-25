@@ -2,7 +2,7 @@ library(stringr)
 library(ggpubr)
 library(dplyr)
 library(tidyr)
-#library(gibbonNetR)
+library(gibbonNetR)
 
 # Best performance using AUC- Grey binary ---------------------------------
 
@@ -103,9 +103,8 @@ best_auc_per_training_data <- CombinedF1all %>%
 
 
 # Create pdf to save for online supporting material -----------------------
-pdf(file = 'results/tablesandfigures/Online Supporting Material Figure 1.pdf', width = 10, height = 10)
-
-# Create the plot
+#pdf(file = 'results/tablesandfigures/Online Supporting Material Figure 1.pdf', width = 10, height = 10)
+# Create the plot 
 p <- ggscatter(data = best_auc_per_training_data,
                x = 'TrainingDataType', 
                y = 'AUC',
@@ -123,4 +122,4 @@ print(p)
 grid::grid.text("OSM Figure 1. AUC-ROC scores across training data augmentation types and architectures. \n AUC-ROC was calculated for the original test data split.",
                 x = 0.5, y = 0.02, gp = grid::gpar(fontsize = 12))
 
-dev.off()
+#dev.off()

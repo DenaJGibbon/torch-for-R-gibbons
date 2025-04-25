@@ -1,0 +1,122 @@
+---
+title: "Recreate R scripts for torch-for-R-gibbons manuscript"
+author: "Clink et al. 2025"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+
+# Install the 'here' package if not already installed
+# install.packages("here")
+
+# Load the 'here' package to set paths dynamically
+library(here)
+
+# Set the working directory using 'here' to get the root of the project
+setwd(here())
+
+source(here("R", "Part 3b. Evaluation data augmentation.R"))
+
+source(here("R", "Part 3c. Evaluation data augmentation on different test set.R"))
+
+source(here("R", "Part 4b. Comparison with BirdNET.R"))
+
+source(here("R", "Part 5. Final model performance.R"))
+
+```
+
+### Figure 4.
+
+```{r, echo=FALSE}
+# Source the R script that performs data augmentation and evaluation dynamically
+
+# Load necessary library
+library(ggpubr)
+
+# Generate the plot
+ggscatter(data = best_auc_per_training_data,
+               x = 'TrainingDataType', 
+               y = 'AUC',
+               facet.by = c('Class', 'CNN.Architecture'),
+               color = 'N.epochs',
+               scales = 'free') +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  xlab('') +
+  scale_color_manual(values = c('yellow', 'purple')) +  # Custom color scale
+  labs(
+    color = "Number of Epochs",  # Legend title for color
+    caption = "Figure 4. A comparison of the maximum F1 score and maximum AUC-ROC."
+  ) +
+  theme(
+    plot.caption = element_text(hjust = 0, size = 10),  # Format caption text
+    legend.position = "right"  # Place legend on the right
+  )
+
+```
+
+### Figure 5.
+
+```{r, echo=FALSE}
+
+# Final bar plot comparing metrics across setups
+ggplot(combined_long, aes(x = Class, y = Value, fill = TrainingDataType)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8)) +
+  facet_grid(CNN.Architecture ~ Metric, scales = "free_y") +
+  labs(title = "", x = "", y = "Metric") +
+  scale_fill_manual(values = rev(viridis(6))) +
+  theme_minimal(base_size = 14) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1),
+        strip.text = element_text(face = "bold")) +
+  guides(fill = guide_legend(title = NULL))+
+  labs(
+    color = "Number of Epochs",  # Legend title for color
+    caption = "Figure 5. Results of data augmentation benchmarking experiments."
+  ) 
+  
+
+```
+
+
+
+# Table 4.
+A comparison AlexNet and ResNet50 architecture performance to that of BirdNET binary and multiclass models. The table shows the maximum F1 score, precision, recall, threshold, and AUC for each model configuration. The best performing model for each species as determined by AUC-ROC is indicated in bold.
+```{r, echo=FALSE}
+CombinedPerformanceTableFT
+```
+
+# Figure 6.
+```{r, echo=FALSE, warning=FALSE}
+# Plot metric values across threshold values for each class
+ggplot(CombinedFinal_long, aes(x = Threshold, y = Score, color = Metric, linetype = Metric)) +
+  geom_line(size = 1) +
+  facet_wrap(~ Class) +
+  labs(x = "Threshold", y = "Score") +
+  scale_color_manual(values = viridis(3)) +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom",
+        strip.text = element_text(face = "bold"))
+```
+
+
+# Appendix Figure 2
+```{r, echo=FALSE, warning=FALSE}
+# Combine all plots into a single panel
+combined_plot <- plot_grid(
+  CrestedGibbonBirdNETBinaryPlot, GreyGibbonBirdNETBinaryPlot,
+  CrestedGibbonBirdNETMultiPlot, GreyGibbonBirdNETMultiPlot,
+  CrestedGibbonCNNMultiPlot, GreyGibbonCNNMultiPlot,
+  nrow = 3,
+  labels = c('A)', 'B)', 'C)', 'D)', 'E)', 'F)')
+)
+
+# Add caption below the combined plot
+captioned_plot <- ggdraw() +
+  draw_plot(combined_plot, 0, 0.05, 1, 0.95) +
+  draw_label("Appendix Figure 2.",
+             x = 0.5, y = 0.01, hjust = 0.5, size = 10)
+
+# Print to the PDF device
+print(captioned_plot)
+```
+

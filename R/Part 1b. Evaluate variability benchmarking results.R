@@ -6,7 +6,7 @@ library(tidyr)
 # Question: Which data augmentation + fine-tuning approach works best?
 # Best performance using AUC- Grey binary ---------------------------------
 GreyGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset',
-                                    full.names = T,recursive = T)
+                                    full.names = TRUE,recursive = TRUE)
 
 GreyGibbonPerformanceSub <- GreyGibbonPerformance[str_detect(GreyGibbonPerformance,'Danum')]
 
@@ -17,7 +17,7 @@ GreyGibbonPerformanceDirs <- unique(dirname(GreyGibbonPerformanceSub))
 # Best performance using AUC- Crested binary ---------------------------------
 
 CrestedGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset_Jahoo',
-                                    full.names = T,recursive = T)
+                                    full.names = TRUE,recursive = TRUE)
 
 CrestedGibbonPerformanceSub <- CrestedGibbonPerformance[str_detect(CrestedGibbonPerformance,'Jahoo')]
 
@@ -27,7 +27,7 @@ CrestedGibbonPerformanceDirs <- unique(dirname(CrestedGibbonPerformanceSub))
 
 # Best performance using AUC - Grey Multi ----------------------------------------------
 GreyMultiGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset_multi_updateAUC_1epoch',
-                                         full.names = T,recursive = T)
+                                         full.names = TRUE,recursive = TRUE)
 
 GreyMultiGibbonPerformanceSub <- GreyMultiGibbonPerformance[str_detect(GreyMultiGibbonPerformance,'performance_tables_multi')]
 
@@ -36,7 +36,7 @@ GreyMultiGibbonPerformanceDirs <- unique(dirname(GreyMultiGibbonPerformanceSub))
 
 # Best performance using AUC - Multi Crested ----------------------------------------------
 CrestedMultiGibbonPerformance <- list.files('results/part1/modelruns_repeatsubset_multi_updateAUC_1epoch',
-                                         full.names = T,recursive = T)
+                                         full.names = TRUE,recursive = TRUE)
 
 CrestedMultiGibbonPerformanceSub <- CrestedMultiGibbonPerformance[str_detect(CrestedMultiGibbonPerformance,'performance_tables_multi')]
 

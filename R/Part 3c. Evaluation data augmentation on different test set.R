@@ -3,8 +3,7 @@ library(stringr)
 library(tidyr)
 library(ggpubr)
 library(viridis)
-
-devtools::load_all("/Users/denaclink/Desktop/RStudioProjects/gibbonNetR")
+library(gibbonNetR)
 
 # Deploy trained models over new test data ----------------------------------------
 test.data.path <- 'TestData/MaliauVietnamCombined/test/'
@@ -92,30 +91,11 @@ best_auc_per_training_data <- CombinedTestPerformanceAll %>%
   filter(AUC == max(AUC, na.rm = TRUE)) %>%
   ungroup()
 
-# Plot best AUC values
-ggscatter(data = best_auc_per_training_data,
-          x = 'TrainingDataType', y = 'AUC',
-          facet.by = c('Class', 'CNN.Architecture'),
-          color = 'N.epochs', scales = 'free') +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  xlab('') +
-  scale_color_manual(values = c('yellow', 'purple'))
-
 # Identify best F1 scores
 best_F1_per_training_data <- best_auc_per_training_data %>%
   group_by(Class) %>%
   filter(F1 == max(F1, na.rm = TRUE)) %>%
   ungroup()
-
-# Plot best F1 scores
-ggscatter(data = best_F1_per_training_data,
-          x = 'TrainingDataType', y = 'F1',
-          facet.by = c('Class', 'CNN.Architecture'),
-          color = 'N.epochs') +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  xlab('') +
-  ylim(0,1) +
-  scale_color_manual(values = c('yellow', 'purple'))
 
 # Identify best Top-1 Accuracy
 best_top1_per_training_data <- best_auc_per_training_data %>%
@@ -123,7 +103,6 @@ best_top1_per_training_data <- best_auc_per_training_data %>%
   filter(Top1Accuracy == max(Top1Accuracy, na.rm = TRUE)) %>%
   ungroup()
 
-as.data.frame(best_top1_per_training_data)
 
 # Compare Original and Augmented training types
 CompareOriginalandAugment <- subset(CombinedTestPerformanceAll,
