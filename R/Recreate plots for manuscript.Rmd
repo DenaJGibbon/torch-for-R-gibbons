@@ -1,10 +1,9 @@
 ---
-title: "Recreate Figures for torch-for-R-gibbons manuscript"
+title: "Recreate figures and tables in manuscript"
 author: "Clink et al. 2025"
 output: github_document
 ---
 
-# Recreate figures and tables in manuscript
 Current citation: 
 Clink, Dena J., et al. "Automated detection of gibbon calls from passive acoustic monitoring data using convolutional neural networks in the" torch for R" ecosystem." arXiv preprint arXiv:2407.09976 (2024).
 

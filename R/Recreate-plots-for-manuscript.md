@@ -1,8 +1,6 @@
-Recreate Figures for torch-for-R-gibbons manuscript
+Recreate figures and tables in manuscript
 ================
 Clink et al. 2025
-
-# Recreate figures and tables in manuscript
 
 Current citation: Clink, Dena J., et al. “Automated detection of gibbon
 calls from passive acoustic monitoring data using convolutional neural
