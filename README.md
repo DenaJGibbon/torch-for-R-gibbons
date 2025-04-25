@@ -30,7 +30,7 @@ documentation (<https://denajgibbon.github.io/gibbonNetR/>).
 Current citation: Clink, Dena J., et al. “Automated detection of gibbon
 calls from passive acoustic monitoring data using convolutional neural
 networks in the” torch for R” ecosystem.” arXiv preprint
-arXiv:2407.09976 (2024).
+arXiv:2407.09976 (2024). <https://doi.org/10.48550/arXiv.2407.09976>
 
 ### Data availability
 
