@@ -27,6 +27,12 @@ devtools::install_github(“<https://github.com/DenaJGibbon/gibbonNetR>”)
 For detailed usage instructions and examples, refer to the gibbonNetR
 documentation (<https://denajgibbon.github.io/gibbonNetR/>).
 
+#### Install BirdNET
+
+Follow the detailed instructions here:
+<https://github.com/birdnet-team/BirdNET-Analyzer>. For this paper we
+used BirdNET v2.4.
+
 Current citation: Clink, Dena J., et al. “Automated detection of gibbon
 calls from passive acoustic monitoring data using convolutional neural
 networks in the” torch for R” ecosystem.” arXiv preprint
