@@ -59,8 +59,8 @@ x.range <- as.numeric(c(min(interpolation.df$x), max(interpolation.df$x)))
 y.range <- as.numeric(c(min(interpolation.df$y), max(interpolation.df$y)))
 sp::coordinates(interpolation.df) = ~x + y
 grd <- expand.grid(x = seq(from = x.range[1], to = x.range[2], 
-                           by = 0.00001), y = seq(from = y.range[1], to = y.range[2], 
-                                                by = 0.00001))
+                           by = 0.0001), y = seq(from = y.range[1], to = y.range[2], 
+                                                by = 0.0001))
 sp::coordinates(grd) <- ~x + y
 sp::gridded(grd) <- TRUE
 
@@ -94,7 +94,7 @@ Danum.call.density.plot <-
   theme(legend.text = element_text(size = 12)) + 
   theme(legend.title = element_text(size = 12))
 
-Danum.call.density.plot  # Plot call density
+#Danum.call.density.plot  # Plot call density
 
 
  # Jahoo  ------------------------------------------------------------
@@ -148,8 +148,8 @@ x.range <- as.numeric(c(min(interpolation.df$x), max(interpolation.df$x)))
 y.range <- as.numeric(c(min(interpolation.df$y), max(interpolation.df$y)))
 sp::coordinates(interpolation.df) = ~x + y
 grd <- expand.grid(x = seq(from = x.range[1], to = x.range[2], 
-                           by = 0.00001), y = seq(from = y.range[1], to = y.range[2], 
-                                                by = 0.00001))
+                           by = 0.0001), y = seq(from = y.range[1], to = y.range[2], 
+                                                by = 0.0001))
 sp::coordinates(grd) <- ~x + y
 sp::gridded(grd) <- TRUE
 
@@ -180,12 +180,12 @@ Jahoo.call.density.plot <-
   theme(legend.text = element_text(size = 12)) + 
   theme(legend.title = element_text(size = 12))
 
-Jahoo.call.density.plot  # Plot call density
+#Jahoo.call.density.plot  # Plot call density
 
-pdf(file='results/Figure 7. CallDensityPlot.pdf', height =12, width=10)
+#pdf(file='results/Figure 7. CallDensityPlot.pdf', height =12, width=10)
 cowplot::plot_grid(Danum.call.density.plot,
                    Jahoo.call.density.plot,nrow=2)
-graphics.off()
+#graphics.off()
 
 
 # Calculate precision for Jahoo -----------------------------------------------------

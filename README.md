@@ -32,6 +32,14 @@ calls from passive acoustic monitoring data using convolutional neural
 networks in the” torch for R” ecosystem.” arXiv preprint
 arXiv:2407.09976 (2024).
 
+### Data availability
+
+You can download the data and results files from Zenodo:
+<https://zenodo.org/records/10948975>.
+
+To run the scripts you can open the folder in your exisiting R project
+directory, or use ‘setwd’.
+
 ## Repository Structure
 
 ### R Scripts Overview
@@ -78,3 +86,8 @@ arXiv:2407.09976 (2024).
 
 - **Part 7. Call Density Plots.R**  
   Generates visualizations of call densities across space.
+
+### Plots and tables
+
+[Click here to view the figures and
+plots](https://github.com/DenaJGibbon/torch-for-R-gibbons/blob/main/R/Recreate-plots-for-manuscript.md)

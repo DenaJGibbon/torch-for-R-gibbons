@@ -95,7 +95,7 @@ CombinedF1all$`N.epochs` <-
 CombinedF1all$TrainingDataType <- 
   paste(CombinedF1all$TrainingDataType, '\n', CombinedF1all$jitter)
 
-best_auc_per_training_data <- CombinedF1all %>%
+best_auc_per_training_data_original_data <- CombinedF1all %>%
   group_by(Class,TrainingDataType,CNN.Architecture,N.epochs) %>%
   filter(AUC == max(AUC, na.rm = TRUE)) %>%
   slice_max(Threshold, n = 1) %>%  # or slice_max if you prefer highest threshold
@@ -105,7 +105,7 @@ best_auc_per_training_data <- CombinedF1all %>%
 # Create pdf to save for online supporting material -----------------------
 #pdf(file = 'results/tablesandfigures/Online Supporting Material Figure 1.pdf', width = 10, height = 10)
 # Create the plot 
-p <- ggscatter(data = best_auc_per_training_data,
+p <- ggscatter(data = best_auc_per_training_data_original_data,
                x = 'TrainingDataType', 
                y = 'AUC',
                facet.by = c('Class', 'CNN.Architecture'),

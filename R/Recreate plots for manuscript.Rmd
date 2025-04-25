@@ -1,11 +1,25 @@
 ---
-title: "Recreate R scripts for torch-for-R-gibbons manuscript"
+title: "Recreate Figures for torch-for-R-gibbons manuscript"
 author: "Clink et al. 2025"
 output: github_document
 ---
 
+# Recreate figures and tables in manuscript
+Current citation: 
+Clink, Dena J., et al. "Automated detection of gibbon calls from passive acoustic monitoring data using convolutional neural networks in the" torch for R" ecosystem." arXiv preprint arXiv:2407.09976 (2024).
 
 ```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 8,    # Narrower default width
+  fig.height = 8    # Optional: adjust height as needed
+)
+
+library(knitr)
+library(kableExtra)
 
 # Install the 'here' package if not already installed
 # install.packages("here")
@@ -24,11 +38,12 @@ source(here::here("R", "Part 4b. Comparison with BirdNET.R"))
 
 source(here::here("R", "Part 5. Final model performance.R"))
 
+source(here::here("R", "Part 7. Call Density Plots.R"))
+
 ```
 
-### Figure 4.
-
 ```{r, echo=FALSE}
+
 # Source the R script that performs data augmentation and evaluation dynamically
 
 # Load necessary library
@@ -54,8 +69,11 @@ ggscatter(data = best_auc_per_training_data,
   )
 
 ```
+  
+### Figure 4.
+A comparison of the maximum F1 score +/- standard error (A) and maximum AUC-ROC +/- standard error (B) over three replicate model runs for each of the model architectures in our analysis. The x-axis indicates the CNN architecture, and the color indicates whether the model feature extractor was fine-tuned (purple) or not (orange). The y-axis indicates the value for each metric. Note the variation in y-axis range for each data type.   
+Script: Part 3b. Evaluation data augmentation.R
 
-### Figure 5.
 
 ```{r, echo=FALSE}
 
@@ -76,16 +94,33 @@ ggplot(combined_long, aes(x = Class, y = Value, fill = TrainingDataType)) +
   
 
 ```
+  
+### Figure 5.
+Results of data augmentation benchmarking experiments for multiclass models on test datasets from Maliau Basin Conservation Area, Malaysia (grey gibbons) and Dakrong Nature Reserve, Vietnam (crested gibbons). The metrics show the highest AUC-ROC and maximum F1-score for each type of data augmentation approach for both AlexNet and ResNet50 architectures.   
+Script: Part 3c. Evaluation data augmentation on different test set.R 
 
-
-
-# Table 4.
-A comparison AlexNet and ResNet50 architecture performance to that of BirdNET binary and multiclass models. The table shows the maximum F1 score, precision, recall, threshold, and AUC for each model configuration. The best performing model for each species as determined by AUC-ROC is indicated in bold.
+### Table 4.
+A comparison AlexNet and ResNet50 architecture performance to that of BirdNET binary and multiclass models. The table shows the maximum F1 score, precision, recall, threshold, and AUC for each model configuration. The best performing model for each species as determined by AUC-ROC is indicated in bold.  
+Script: Part 4b. Comparison with BirdNET.R
 ```{r, echo=FALSE}
-CombinedPerformanceTableFT
+
+kable(CombinedPerformanceTable, format = "markdown")  # Plain markdown table
+
+
 ```
 
-# Figure 6.
+### Table 6.
+Model performance for test files from wide arrays at Danum Valley Conservation Area, Malaysia, and Jahoo, Cambodia. Models were multiclass ResNet50 architecture trained on the “duplicated” dataset with color jitter. AUC-ROC is shown once for each class as it is threshold independent.
+
+Script: Part 5. Final model performance.R
+```{r, echo=FALSE}
+
+kable(best_all, format = "markdown")  # Plain markdown table
+
+
+```
+
+
 ```{r, echo=FALSE, warning=FALSE}
 # Plot metric values across threshold values for each class
 ggplot(CombinedFinal_long, aes(x = Threshold, y = Score, color = Metric, linetype = Metric)) +
@@ -97,9 +132,39 @@ ggplot(CombinedFinal_long, aes(x = Threshold, y = Score, color = Metric, linetyp
   theme(legend.position = "bottom",
         strip.text = element_text(face = "bold"))
 ```
+  
+### Figure 6.
+Precision, recall, and F1 score as a function of confidence score for test datasets from the wide array for crested and grey gibbons. Models used were multiclass ResNet50 architecture trained on the “duplicated” dataset with color jitter.  
 
+Script: Part 5. Final model performance.R  
 
-# Appendix Figure 2
+```{r, echo=FALSE, warning=FALSE}
+cowplot::plot_grid(Danum.call.density.plot,
+                   Jahoo.call.density.plot,nrow=2)
+```
+
+### Figure 7. Call event density 
+Call event density for Danum Valley Conservation Area, Malaysia (top) and Jahoo, Cambodia (bottom). Recorders were placed at ~750-m spacing in Danum Valley and ~2-km at Jahoo. The number of detections was standardized by the number of recording hours at each recorder location.  
+
+Script: Part 7. Call Density Plots.R
+
+### Appendix Figure 1
+Script: Part 3b. Evaluation data augmentation.R
+```{r, echo=FALSE, warning=FALSE}
+ggscatter(data = best_auc_per_training_data_original_data,
+               x = 'TrainingDataType', 
+               y = 'AUC',
+               facet.by = c('Class', 'CNN.Architecture'),
+               color = 'N.epochs',
+               scales = 'free') +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  xlab('') +
+  scale_color_manual(values = c('yellow', 'purple'))
+```
+
+    
+### Appendix Figure 2
+Script: Part 4b. Comparison with BirdNET.R
 ```{r, echo=FALSE, warning=FALSE}
 # Combine all plots into a single panel
 combined_plot <- plot_grid(
