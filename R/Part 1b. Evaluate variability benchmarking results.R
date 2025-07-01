@@ -136,7 +136,6 @@ F1plot <- ggplot(maxSEF1AUC, aes(x = CNN.Architecture, y = max_F1, color = facto
     legend.position = "top"  # Move legend to the top
   )
 
-F1plot
 
 AUCPlot <- ggplot(maxSEF1AUC, aes(x = CNN.Architecture, y = max_AUC, color = factor(Frozen), group = factor(Frozen))) +
   #geom_line(linewidth = 1) +  # Line plot for mean F1 across architectures
@@ -157,8 +156,8 @@ AUCPlot <- ggplot(maxSEF1AUC, aes(x = CNN.Architecture, y = max_AUC, color = fac
     legend.position = "top"  # Move legend to the top
   )+ylab('AUC-ROC')
 
-AUCPlot
 
-cowplot::plot_grid(F1plot,AUCPlot,
-                   labels = c('A)','B)'),
-                   label_x = 0.9)
+
+# cowplot::plot_grid(F1plot,AUCPlot,
+#                    labels = c('A)','B)'),
+#                    label_x = 0.9)
